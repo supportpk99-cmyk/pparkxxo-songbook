@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -7,17 +8,162 @@
 <title>빡쏘의 노래서랍 ♡</title>
 <style>
 :root{--ink:#704b5d;--muted:#a18795;--pink:#bd718c;--line:#f1e4e9;--shadow:0 14px 40px #98647b12}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff8f4 0,#fff5f8 48%,#fff 100%);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}body.modal-open{overflow:hidden}
-button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;margin:auto;padding:24px 22px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.03em}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(140deg,#f1c5d8,#e4d8f2);display:grid;place-items:center;color:#995876;font-size:23px;box-shadow:0 7px 20px #d59bb733}.brand small{display:block;font-size:9px;letter-spacing:.15em;color:#aa8497;margin-top:3px}.topnav{display:flex;gap:8px}.nav{border:1px solid var(--line);background:#fff;color:#886a7b;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700}.nav.active{background:#f6e3eb;border-color:#ecc9d8;color:#a04f76}
-.hero{position:relative;overflow:hidden;border:1px solid #efd9e3;border-radius:28px;background:linear-gradient(112deg,#f9e2e8,#fff0e9 46%,#eee8fa);padding:44px 42px;min-height:270px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:20px}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#fff8;pointer-events:none}.hero:before{width:220px;height:220px;right:12%;top:-120px}.hero:after{width:160px;height:160px;right:30%;bottom:-115px}.hero-copy{position:relative;z-index:1;max-width:650px}.eyebrow{font-size:10px;letter-spacing:.2em;font-weight:800;color:#ad6b83}.hero h1{font-family:Georgia,"Noto Serif KR",serif;font-size:clamp(34px,5vw,54px);letter-spacing:-.055em;line-height:1.18;margin:13px 0 10px;color:#96566f}.hero p{margin:0;color:#916d80;font-size:14px}.hero-tags{display:flex;gap:8px;margin-top:21px;flex-wrap:wrap}.tag{background:#fff9;border:1px solid #fff;padding:7px 11px;border-radius:99px;color:#96627b;font-size:10px;font-weight:800;letter-spacing:.08em}.mascot{position:relative;z-index:1;flex:none;width:220px;height:220px;border-radius:34px;overflow:hidden;background:linear-gradient(145deg,#fff8fb,#f0e6f8);border:5px solid #ffffffc9;box-shadow:0 16px 38px #9c648322}.mascot img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 38%}
-.stats{display:flex;gap:10px;margin:18px 0 28px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 17px;min-width:130px;box-shadow:var(--shadow)}.stat b{display:block;font-size:21px;color:#a6587d}.stat span{font-size:10px;color:var(--muted)}.page{display:none}.page.active{display:block}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:26px 0 14px}.sectionhead h2{font-family:Georgia,"Noto Serif KR",serif;font-size:25px;margin:0;color:#75475e}.sectionhead p{font-size:12px;color:var(--muted);margin:5px 0 0}.count{font-size:12px;color:#a77a90}
-.search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #efdee6;border-radius:16px;padding:7px 8px 7px 16px;box-shadow:var(--shadow);margin:16px 0}.search input{flex:1;min-width:0;border:0;outline:0;padding:10px 0;color:var(--ink);background:transparent;font-size:14px}.search input::placeholder{color:#b49aa8}.search button{border:0;border-radius:11px;background:#b96b8f;color:white;padding:10px 16px;font-size:12px;font-weight:800}.filters{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.chip{border:1px solid #eee0e8;background:#fff;color:#92778a;border-radius:99px;padding:8px 13px;font-size:11px}.chip.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}.toolbar select{border:1px solid var(--line);background:white;color:#856b7b;border-radius:10px;padding:9px 11px;font-size:12px}
-.songlist{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}.songrow{display:grid;grid-template-columns:38px minmax(0,1fr) 100px 120px;align-items:center;gap:12px;padding:13px 17px;border-bottom:1px solid #f5edf1}.songrow:last-child{border:0}.songicon{width:36px;height:36px;border-radius:12px;background:linear-gradient(145deg,#fae7ef,#eee8f7);display:grid;place-items:center;color:#b56b8d;font-size:17px}.songtitle{font-weight:750;font-size:13px}.artist{font-size:11px;color:#a58d9b;margin-top:4px}.genre{font-size:11px;color:#9b7890}.key{font-size:10px;color:#a77a90;text-align:right}.actions{display:flex;justify-content:flex-end;gap:7px}.actions a{width:29px;height:29px;display:grid;place-items:center;text-decoration:none;background:#fff4f8;border-radius:9px;color:#ba6689;font-size:12px}.empty{padding:45px;text-align:center;color:#a58d9b;font-size:13px}
-.clipgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.clip{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}.clip-open{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;color:inherit}.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#f6dce7,#e9e1f5);display:grid;place-items:center;color:#ad6e8c;font-size:36px;position:relative;overflow:hidden}.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,#fff9,transparent 38%),linear-gradient(135deg,#f6dce7,#e9e1f5)}.thumb-icon{position:relative;z-index:1;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#ffffffc9;color:#ae6687;font-size:25px;box-shadow:0 8px 24px #9b668522;transition:transform .2s}.clip-open:hover .thumb-icon{transform:scale(1.1)}.thumb:after{content:"SOOP CLIP · 눌러서 영상 보기";position:absolute;left:12px;bottom:10px;font-size:9px;letter-spacing:.08em;color:#91667e;font-weight:800;z-index:1}.clipbody{padding:14px}.clipbody h3{font-size:13px;margin:0 0 6px}.clipbody p{font-size:11px;color:var(--muted);margin:0}.foot{text-align:center;color:#b39aaa;font-size:10px;margin:36px 0 8px;letter-spacing:.08em}.notice{background:#fff;border:1px dashed #e9cbd9;border-radius:14px;padding:13px;color:#9b7b8c;font-size:11px;line-height:1.6;margin-top:14px}.pagination{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin:20px 0}.pagination button{border:1px solid #efdee6;background:#fff;color:#92778a;border-radius:10px;padding:9px 13px;font-size:12px}.pagination button.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}.pagination button:disabled{opacity:.4;cursor:default}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#fff8f4 0,#fff5f8 48%,#fff 100%);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+body.modal-open{overflow:hidden}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.shell{max-width:1120px;margin:auto;padding:24px 22px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.03em}
+.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(140deg,#f1c5d8,#e4d8f2);display:grid;place-items:center;color:#995876;font-size:23px;box-shadow:0 7px 20px #d59bb733}
+.brand small{display:block;font-size:9px;letter-spacing:.15em;color:#aa8497;margin-top:3px}
+.topnav{display:flex;gap:8px}
+.nav{border:1px solid var(--line);background:#fff;color:#886a7b;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700}
+.nav.active{background:#f6e3eb;border-color:#ecc9d8;color:#a04f76}
+.hero{position:relative;overflow:hidden;border:1px solid #efd9e3;border-radius:28px;background:linear-gradient(112deg,#f9e2e8,#fff0e9 46%,#eee8fa);padding:44px 42px;min-height:270px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#fff8;pointer-events:none}
+.hero:before{width:220px;height:220px;right:12%;top:-120px}
+.hero:after{width:160px;height:160px;right:30%;bottom:-115px}
+.hero-copy{position:relative;z-index:1;max-width:650px}
+.eyebrow{font-size:10px;letter-spacing:.2em;font-weight:800;color:#ad6b83}
+.hero h1{font-family:Georgia,"Noto Serif KR",serif;font-size:clamp(34px,5vw,54px);letter-spacing:-.055em;line-height:1.18;margin:13px 0 10px;color:#96566f}
+.hero p{margin:0;color:#916d80;font-size:14px}
+.hero-tags{display:flex;gap:8px;margin-top:21px;flex-wrap:wrap}
+.tag{background:#fff9;border:1px solid #fff;padding:7px 11px;border-radius:99px;color:#96627b;font-size:10px;font-weight:800;letter-spacing:.08em}
+.mascot{position:relative;z-index:1;flex:none;width:220px;height:220px;border-radius:34px;overflow:hidden;background:linear-gradient(145deg,#fff8fb,#f0e6f8);border:5px solid #ffffffc9;box-shadow:0 16px 38px #9c648322}
+.mascot img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 38%}
+
+/* 통계 카드 모션 */
+.stats{display:flex;gap:10px;margin:18px 0 28px}
+.stat{
+ background:#fff;border:1px solid var(--line);border-radius:16px;
+ padding:12px 17px;min-width:130px;
+ box-shadow:var(--shadow);
+ cursor:pointer;
+ transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+ transform:translateY(0);
+ -webkit-tap-highlight-color:transparent;
+}
+.stat:hover{
+ transform:translateY(-3px) scale(1.015);
+ box-shadow:0 17px 35px #98647b20;
+ border-color:#e9cbd9;
+}
+.stat:active{transform:translateY(-1px) scale(.99)}
+.stat b{display:block;font-size:21px;color:#a6587d}
+.stat span{font-size:10px;color:var(--muted)}
+.stat-icon{
+ display:inline-block;
+ margin-right:5px;
+ transition:transform .25s ease;
+}
+.stat:hover .stat-icon{transform:translateY(-3px)}
+.stat:focus-visible{outline:2px solid #dba5bd;outline-offset:3px}
+
+.page{display:none}
+.page.active{display:block}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:26px 0 14px}
+.sectionhead h2{font-family:Georgia,"Noto Serif KR",serif;font-size:25px;margin:0;color:#75475e}
+.sectionhead p{font-size:12px;color:var(--muted);margin:5px 0 0}
+.count{font-size:12px;color:#a77a90}
+.search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #efdee6;border-radius:16px;padding:7px 8px 7px 16px;box-shadow:var(--shadow);margin:16px 0}
+.search input{flex:1;min-width:0;border:0;outline:0;padding:10px 0;color:var(--ink);background:transparent;font-size:14px}
+.search input::placeholder{color:#b49aa8}
+.search button{border:0;border-radius:11px;background:#b96b8f;color:white;padding:10px 16px;font-size:12px;font-weight:800}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid #eee0e8;background:#fff;color:#92778a;border-radius:99px;padding:8px 13px;font-size:11px}
+.chip.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}
+.toolbar select{border:1px solid var(--line);background:white;color:#856b7b;border-radius:10px;padding:9px 11px;font-size:12px}
+.songlist{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.songrow{display:grid;grid-template-columns:38px minmax(0,1fr) 100px 120px;align-items:center;gap:12px;padding:13px 17px;border-bottom:1px solid #f5edf1}
+.songrow:last-child{border:0}
+.songicon{width:36px;height:36px;border-radius:12px;background:linear-gradient(145deg,#fae7ef,#eee8f7);display:grid;place-items:center;color:#b56b8d;font-size:17px}
+.songtitle{font-weight:750;font-size:13px}
+.artist{font-size:11px;color:#a58d9b;margin-top:4px}
+.genre{font-size:11px;color:#9b7890}
+.key{font-size:10px;color:#a77a90;text-align:right}
+.actions{display:flex;justify-content:flex-end;gap:7px}
+.actions a{width:29px;height:29px;display:grid;place-items:center;text-decoration:none;background:#fff4f8;border-radius:9px;color:#ba6689;font-size:12px}
+.empty{padding:45px;text-align:center;color:#a58d9b;font-size:13px}
+.clipgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.clip{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}
+.clip-open{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;color:inherit}
+.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#f6dce7,#e9e1f5);display:grid;place-items:center;color:#ad6e8c;font-size:36px;position:relative;overflow:hidden}
+.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,#fff9,transparent 38%),linear-gradient(135deg,#f6dce7,#e9e1f5)}
+.thumb-icon{position:relative;z-index:1;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#ffffffc9;color:#ae6687;font-size:25px;box-shadow:0 8px 24px #9b668522;transition:transform .2s}
+.clip-open:hover .thumb-icon{transform:scale(1.1)}
+.thumb:after{content:"SOOP CLIP · 눌러서 영상 보기";position:absolute;left:12px;bottom:10px;font-size:9px;letter-spacing:.08em;color:#91667e;font-weight:800;z-index:1}
+.clipbody{padding:14px}
+.clipbody h3{font-size:13px;margin:0 0 6px}
+.clipbody p{font-size:11px;color:var(--muted);margin:0}
+.foot{text-align:center;color:#b39aaa;font-size:10px;margin:36px 0 8px;letter-spacing:.08em}
+.notice{background:#fff;border:1px dashed #e9cbd9;border-radius:14px;padding:13px;color:#9b7b8c;font-size:11px;line-height:1.6;margin-top:14px}
+.pagination{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin:20px 0}
+.pagination button{border:1px solid #efdee6;background:#fff;color:#92778a;border-radius:10px;padding:9px 13px;font-size:12px}
+.pagination button.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}
+.pagination button:disabled{opacity:.4;cursor:default}
+
 /* 중앙 대형 플레이어 팝업 */
-.video-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(42,25,36,.8);backdrop-filter:blur(7px)}.video-modal.open{display:flex}.video-dialog{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#fffafd;border:1px solid #f0dce5;border-radius:22px;box-shadow:0 28px 100px #0006;padding:18px}.video-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.video-heading{min-width:0}.video-heading h3{font-size:17px;color:#75475e;margin:0;overflow-wrap:anywhere}.video-heading p{font-size:12px;color:#a18795;margin:5px 0 0}.video-close{flex:none;width:38px;height:38px;border:0;border-radius:50%;background:#f7e8ee;color:#9c5877;font-size:25px;line-height:1}.video-frame{width:100%;aspect-ratio:16/9;background:#17131a;border-radius:14px;overflow:hidden}.video-frame iframe{display:block;width:100%;height:100%;border:0}.video-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}.video-help{font-size:11px;color:#a18795;line-height:1.5}.original-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#b96b8f;color:#fff;border-radius:11px;padding:11px 16px;font-size:12px;font-weight:800}
-@media(max-width:700px){.shell{padding:15px 13px 34px}.top{align-items:flex-start}.brand{font-size:14px}.topnav{gap:5px}.nav{padding:9px 11px;font-size:11px}.hero{padding:28px 22px;min-height:220px}.mascot{width:130px;height:130px;border-radius:25px;border-width:4px}.hero h1{font-size:34px}.hero p{font-size:12px}.stats{margin:13px 0 22px}.stat{min-width:0;flex:1;padding:10px 12px}.stat b{font-size:18px}.songrow{grid-template-columns:34px minmax(0,1fr) 62px 64px;gap:7px;padding:11px 9px}.songicon{width:32px;height:32px}.songtitle{font-size:12px}.artist{font-size:10px}.genre,.key{font-size:9px}.actions{gap:4px}.actions a{width:25px;height:25px}.clipgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.clipbody{padding:11px}.clipbody h3{font-size:12px}.sectionhead h2{font-size:22px}.video-modal{padding:12px}.video-dialog{padding:12px;border-radius:17px}.video-heading h3{font-size:14px}.video-frame{border-radius:10px}.video-actions{align-items:stretch}.original-link{width:100%}}
-@media(max-width:390px){.mascot{width:96px;height:96px;border-radius:20px}.hero{padding:24px 17px}.hero h1{font-size:29px}.songrow{grid-template-columns:30px minmax(0,1fr) 55px 55px}.actions a{width:22px;height:22px}}
+.video-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(42,25,36,.8);backdrop-filter:blur(7px)}
+.video-modal.open{display:flex}
+.video-dialog{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#fffafd;border:1px solid #f0dce5;border-radius:22px;box-shadow:0 28px 100px #0006;padding:18px}
+.video-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}
+.video-heading{min-width:0}
+.video-heading h3{font-size:17px;color:#75475e;margin:0;overflow-wrap:anywhere}
+.video-heading p{font-size:12px;color:#a18795;margin:5px 0 0}
+.video-close{flex:none;width:38px;height:38px;border:0;border-radius:50%;background:#f7e8ee;color:#9c5877;font-size:25px;line-height:1}
+.video-frame{width:100%;aspect-ratio:16/9;background:#17131a;border-radius:14px;overflow:hidden}
+.video-frame iframe{display:block;width:100%;height:100%;border:0}
+.video-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.video-help{font-size:11px;color:#a18795;line-height:1.5}
+.original-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#b96b8f;color:#fff;border-radius:11px;padding:11px 16px;font-size:12px;font-weight:800}
+@media(max-width:700px){
+ .shell{padding:15px 13px 34px}
+ .top{align-items:flex-start}
+ .brand{font-size:14px}
+ .topnav{gap:5px}
+ .nav{padding:9px 11px;font-size:11px}
+ .hero{padding:28px 22px;min-height:220px}
+ .mascot{width:130px;height:130px;border-radius:25px;border-width:4px}
+ .hero h1{font-size:34px}
+ .hero p{font-size:12px}
+ .stats{margin:13px 0 22px}
+ .stat{min-width:0;flex:1;padding:10px 12px}
+ .stat b{font-size:18px}
+ .songrow{grid-template-columns:34px minmax(0,1fr) 62px 64px;gap:7px;padding:11px 9px}
+ .songicon{width:32px;height:32px}
+ .songtitle{font-size:12px}
+ .artist{font-size:10px}
+ .genre,.key{font-size:9px}
+ .actions{gap:4px}
+ .actions a{width:25px;height:25px}
+ .clipgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .clipbody{padding:11px}
+ .clipbody h3{font-size:12px}
+ .sectionhead h2{font-size:22px}
+ .video-modal{padding:12px}
+ .video-dialog{padding:12px;border-radius:17px}
+ .video-heading h3{font-size:14px}
+ .video-frame{border-radius:10px}
+ .video-actions{align-items:stretch}
+ .original-link{width:100%}
+}
+@media(max-width:390px){
+ .mascot{width:96px;height:96px;border-radius:20px}
+ .hero{padding:24px 17px}
+ .hero h1{font-size:29px}
+ .songrow{grid-template-columns:30px minmax(0,1fr) 55px 55px}
+ .actions a{width:22px;height:22px}
+}
+@media(hover:none){
+ .stat:hover{transform:none;box-shadow:var(--shadow);border-color:var(--line)}
+ .stat:active{transform:scale(.985)}
+}
+@media(prefers-reduced-motion:reduce){
+ .stat,.stat-icon{transition:none}
+}
 </style>
 </head>
 <body>
@@ -26,11 +172,28 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;m
  <div class="brand"><div class="mark">♫</div><div>빡쏘의 노래서랍 ♡<small>PPARKXXO'S SONGBOOK</small></div></div>
  <nav class="topnav"><button class="nav active" data-page="songs">노래책</button><button class="nav" data-page="clips">클립 모음</button></nav>
 </header>
+
 <section class="hero">
- <div class="hero-copy"><div class="eyebrow">WELCOME TO PPARKXXO'S MUSIC ARCHIVE</div><h1>빡쏘의 노래서랍 ♡</h1><p>노래를 찾고, 다시 보고 싶은 순간을 모아두는 나만의 음악 아카이브.</p><div class="hero-tags"><span class="tag">SONGBOOK</span><span class="tag">CLIP ARCHIVE</span><span class="tag">MADE WITH ♡</span></div></div>
+ <div class="hero-copy">
+  <div class="eyebrow">WELCOME TO PPARKXXO'S MUSIC ARCHIVE</div>
+  <h1>빡쏘의 노래서랍 ♡</h1>
+  <p>노래를 찾고, 다시 보고 싶은 순간을 모아두는 나만의 음악 아카이브.</p>
+  <div class="hero-tags"><span class="tag">SONGBOOK</span><span class="tag">CLIP ARCHIVE</span><span class="tag">MADE WITH ♡</span></div>
+ </div>
  <div class="mascot"><img src="./hero-character.jpg" alt="빡쏘 캐릭터"></div>
 </section>
-<div class="stats"><div class="stat"><b id="songTotal">122</b><span>등록된 노래</span></div><div class="stat"><b id="clipTotal">3</b><span>모아둔 클립</span></div></div>
+
+<div class="stats">
+ <div class="stat" role="button" tabindex="0" data-stat-page="songs" aria-label="등록된 노래 목록으로 이동">
+  <b><span class="stat-icon" aria-hidden="true">♫</span><span id="songTotal">122</span></b>
+  <span>등록된 노래</span>
+ </div>
+ <div class="stat" role="button" tabindex="0" data-stat-page="clips" aria-label="모아둔 클립 목록으로 이동">
+  <b><span class="stat-icon" aria-hidden="true">▶</span><span id="clipTotal">3</span></b>
+  <span>모아둔 클립</span>
+ </div>
+</div>
+
 <main>
 <section id="songsPage" class="page active">
  <div class="sectionhead"><div><h2>Song Book</h2><p>찾고 싶은 노래를 검색하거나 분류별로 둘러보세요.</p></div><span class="count" id="songCount">122곡</span></div>
@@ -40,6 +203,7 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;m
  <div class="songlist" id="songList"></div><div class="pagination" id="songPagination"></div>
  <div class="notice">유튜브 아이콘은 노래 제목 + 가수 + 노래방 검색으로, 가사 아이콘은 제목 + 가수 + 가사 검색으로 연결됩니다. 전체 가사는 저작권 때문에 사이트에 저장하지 않습니다.</div>
 </section>
+
 <section id="clipsPage" class="page">
  <div class="sectionhead"><div><h2>Clip Archive</h2><p>다시 보고 싶은 방송 속 노래 순간들</p></div><span class="count" id="clipCountLabel">CLIPS</span></div>
  <div class="search"><span>⌕</span><input id="clipQ" placeholder="노래 제목 또는 클립 제목 검색"></div>
@@ -47,16 +211,21 @@ button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;m
  <div class="notice">클립을 누르면 화면 중앙의 큰 플레이어에서 재생됩니다. 재생이 안 되거나 제한되는 경우 팝업 아래의 SOOP 원본에서 보기 버튼을 눌러주세요.</div>
 </section>
 </main>
+
 <footer class="foot">♡ PPARKXXO'S SONGBOOK · TOUGH OUTSIDE, SOFT INSIDE ♡</footer>
 </div>
 
 <div class="video-modal" id="videoModal" aria-hidden="true">
  <div class="video-dialog" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
-  <div class="video-head"><div class="video-heading"><h3 id="videoTitle">클립 제목</h3><p id="videoArtist"></p></div><button class="video-close" id="closeVideo" type="button" aria-label="팝업 닫기">×</button></div>
+  <div class="video-head">
+   <div class="video-heading"><h3 id="videoTitle">클립 제목</h3><p id="videoArtist"></p></div>
+   <button class="video-close" id="closeVideo" type="button" aria-label="팝업 닫기">×</button>
+  </div>
   <div class="video-frame" id="videoFrame"></div>
   <div class="video-actions"><span class="video-help">영상이 재생되지 않으면 SOOP 원본 페이지에서 시청할 수 있어요.</span><a class="original-link" id="originalLink" href="#" target="_blank" rel="noopener noreferrer">SOOP 원본에서 보기 ↗</a></div>
  </div>
 </div>
+
 <script>
 let songs=[],clips=[],group='전체',era='전체 시대';
 let currentPage=1;
@@ -67,6 +236,23 @@ function chosung(s){
  const c=['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
  return [...s].map(x=>{let n=x.charCodeAt(0)-44032;return n>=0&&n<=11171?c[Math.floor(n/588)]:x;}).join('');
 }
+function showPage(page){
+ document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ $('#songsPage').classList.toggle('active',page==='songs');
+ $('#clipsPage').classList.toggle('active',page==='clips');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-page]').forEach(b=>{b.onclick=()=>showPage(b.dataset.page);});
+
+/* 통계 카드 클릭 이동 */
+document.querySelectorAll('[data-stat-page]').forEach(card=>{
+ const go=()=>showPage(card.dataset.statPage);
+ card.addEventListener('click',go);
+ card.addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}
+ });
+});
+
 function renderSongs(){
  let q=$('#q').value.trim().toLowerCase().replace(/\s/g,'');
  let list=songs.filter(s=>(group==='전체'||String(s['곡분류']||'')===group)&&(era==='전체 시대'||String(s['시대']||'')===era)&&[s['노래제목'],s['가수'],chosung(s['노래제목']),chosung(s['가수'])].some(x=>String(x||'').toLowerCase().replace(/\s/g,'').includes(q)));
@@ -99,9 +285,7 @@ function getEmbedUrl(url){
  const m=String(url||'').trim().match(
   /^https?:\/\/(?:vod\.)?sooplive\.co(?:m|\.kr)\/player\/(\d+)/i
  );
- return m
-  ? `https://vod.sooplive.co.kr/player/${m[1]}/embed`
-  : '';
+ return m?`https://vod.sooplive.co.kr/player/${m[1]}/embed`:'';
 }
 function openClip(c){
  const originalUrl=String(c['SOOP주소']||'').trim();
@@ -111,10 +295,16 @@ function openClip(c){
  $('#originalLink').href=originalUrl;
  const embedUrl=getEmbedUrl(originalUrl);
  $('#videoFrame').innerHTML=embedUrl?`<iframe src="${esc(embedUrl)}" title="${esc(c['클립제목']||'SOOP 클립')}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`:'<div class="empty" style="height:100%;display:grid;place-items:center;color:#fff">팝업 재생 주소를 확인할 수 없어요. SOOP 원본에서 시청해주세요.</div>';
- $('#videoModal').classList.add('open');$('#videoModal').setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#closeVideo').focus();
+ $('#videoModal').classList.add('open');
+ $('#videoModal').setAttribute('aria-hidden','false');
+ document.body.classList.add('modal-open');
+ $('#closeVideo').focus();
 }
 function closeClip(){
- $('#videoModal').classList.remove('open');$('#videoModal').setAttribute('aria-hidden','true');$('#videoFrame').innerHTML='';document.body.classList.remove('modal-open');
+ $('#videoModal').classList.remove('open');
+ $('#videoModal').setAttribute('aria-hidden','true');
+ $('#videoFrame').innerHTML='';
+ document.body.classList.remove('modal-open');
 }
 function renderClips(){
  let q=$('#clipQ').value.trim().toLowerCase();
@@ -123,7 +313,6 @@ function renderClips(){
  window.visibleClips=list;
  $('#clipGrid').innerHTML=list.map((c,i)=>`<article class="clip"><button class="clip-open" type="button" data-clip-index="${i}" aria-label="${esc(c['클립제목']||'클립')} 재생"><div class="thumb"><span class="thumb-icon">▶</span></div></button><div class="clipbody"><h3>${esc(c['클립제목']||'제목 미등록')}</h3><p>${esc(c['가수']||'가수 미등록')}</p></div></article>`).join('')||'<div class="empty">검색된 클립이 없어요.</div>';
 }
-document.querySelectorAll('[data-page]').forEach(b=>{b.onclick=()=>{document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x===b));$('#songsPage').classList.toggle('active',b.dataset.page==='songs');$('#clipsPage').classList.toggle('active',b.dataset.page==='clips');};});
 $('#q').oninput=()=>{currentPage=1;renderSongs();};
 $('#sort').onchange=()=>{currentPage=1;renderSongs();};
 $('#reset').onclick=()=>{$('#q').value='';group='전체';era='전체 시대';currentPage=1;renderGroups();renderEras();renderSongs();};
@@ -135,19 +324,27 @@ $('#clipGrid').onclick=e=>{let b=e.target.closest('[data-clip-index]');if(b){let
 $('#closeVideo').onclick=closeClip;
 $('#videoModal').addEventListener('click',e=>{if(e.target===$('#videoModal'))closeClip();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#videoModal').classList.contains('open'))closeClip();});
+
 const API_URL='https://script.google.com/macros/s/AKfycbwr7lNcZpTrwyOjHlEUcNbDtudqUTak7qJJEFIIC8jwnBP77oRpcgHiEzQbJEsBgjX_/exec';
 function loadSheetData(){
  return new Promise((resolve,reject)=>{
   const cb='songbookCallback';
   const timer=setTimeout(()=>{delete window[cb];reject(new Error('API timeout'));},15000);
-  window[cb]=data=>{clearTimeout(timer);delete window[cb];if(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips))resolve(data);else reject(new Error('Invalid API response'));};
-  const script=document.createElement('script');script.src=API_URL+'?callback='+cb;
+  window[cb]=data=>{
+   clearTimeout(timer);delete window[cb];
+   if(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips))resolve(data);
+   else reject(new Error('Invalid API response'));
+  };
+  const script=document.createElement('script');
+  script.src=API_URL+'?callback='+cb;
   script.onerror=()=>{clearTimeout(timer);delete window[cb];reject(new Error('API load failed'));};
   document.head.appendChild(script);
  });
 }
 loadSheetData().then(data=>{
- songs=data.songs;clips=data.clips;$('#songTotal').textContent=songs.length;$('#clipTotal').textContent=clips.length;
+ songs=data.songs;clips=data.clips;
+ $('#songTotal').textContent=songs.length;
+ $('#clipTotal').textContent=clips.length;
  renderGroups();renderEras();renderSongs();renderClips();
 }).catch(()=>{
  $('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';
