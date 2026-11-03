@@ -96,8 +96,12 @@ function renderEras(){
  $('#eras').innerHTML=eras.map(e=>`<button class="chip ${e===era?'active':''}" data-era="${e}">${e}</button>`).join('');
 }
 function getEmbedUrl(url){
- const m=String(url||'').trim().match(/^https?:\/\/(?:vod\.)?sooplive\.com\/player\/(\d+)/i);
- return m?`https://vod.sooplive.co.kr/player/${m[1]}/embed`:'';
+ const m=String(url||'').trim().match(
+  /^https?:\/\/(?:vod\.)?sooplive\.co(?:m|\.kr)\/player\/(\d+)/i
+ );
+ return m
+  ? `https://vod.sooplive.co.kr/player/${m[1]}/embed`
+  : '';
 }
 function openClip(c){
  const originalUrl=String(c['SOOP주소']||'').trim();
