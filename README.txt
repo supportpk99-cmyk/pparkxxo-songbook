@@ -1,21 +1,7 @@
-빡쏘의 노래서랍 ♡ - 홈페이지 디자인 미리보기
+빡쏘의 노래서랍 ♡ - 구글 시트 연동 버전
 
-구성 파일
-- index.html: 공개 노래책 / 클립 모음 화면
-- hero-character.jpg: 현재 메인 배너 캐릭터 이미지 (사용자가 제공한 사진)
-- songs.json: 노래 122곡
-- clips.json: SOOP 클립 3개
-- admin.html: 관리자 연결 전 안내 페이지
-- vercel.json: /admin 경로 설정
-
-디자인
-- 밝은 아이보리 배경, 로즈/라벤더 포인트, 실버 느낌의 밝은 장식
-- 블랙 및 어두운 배경색은 사용하지 않음
-- 메인 배너는 캐릭터 이미지와 로고를 함께 배치
-
-미리보기
-압축을 풀고 Vercel에 프로젝트로 배포하면 공개 화면을 확인할 수 있습니다. 로컬에서 확인할 때는 폴더에서 간단한 웹서버를 실행해야 JSON 목록이 정상적으로 불러와집니다.
-
-중요: 현재 파일은 프론트엔드 미리보기입니다. 실제 운영 전 Google Sheets 연결, 서버 측 관리자 로그인/권한, 노래·클립 추가/수정 API, SOOP 임베드 재생 테스트가 필요합니다. 아직 실제 홈페이지에 배포된 상태는 아닙니다. Google Sheets를 공개 공유하거나 비밀키를 브라우저에 넣지 마세요.
-
-나중에 GIF로 교체할 때는 GIF 파일을 hero-character.gif로 저장하고 index.html의 이미지 경로를 ./hero-character.gif 로 바꾸면 됩니다. GIF 애니메이션은 브라우저에서 그대로 재생됩니다.
+1) index.html은 Apps Script 웹 앱에서 노래목록/클립목록을 JSONP로 불러옵니다.
+2) songs.json / clips.json은 예비 데이터로 남겨둔 파일입니다.
+3) Apps Script의 doGet은 callback 파라미터가 있을 때 JSONP(JavaScript)로 응답해야 합니다.
+4) 관리자 기능은 아직 포함되어 있지 않습니다. 공개 API는 읽기 전용으로 사용하세요.
+5) hero-character.jpg, vercel.json은 기존 디자인과 /admin 경로 설정을 유지합니다.
