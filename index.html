@@ -293,6 +293,7 @@ function renderEras(){
   ).join('');
 }
 
+
 function renderClips(){
   let q=$('#clipQ').value.trim().toLowerCase();
 
@@ -301,18 +302,45 @@ function renderClips(){
       .toLowerCase().includes(q)
   );
 
-  $('#clipGrid').innerHTML=list.map(c=>`
-    <article class="clip">
-      <div class="thumb">♫</div>
-      <div class="clipbody">
-        <h3>${esc(c['클립제목'])}</h3>
-        <p>${esc(c['가수'])}</p>
-        <a href="${esc(c['SOOP주소'])}" target="_blank" rel="noopener noreferrer">
-          SOOP에서 보기 ↗
-        </a>
-      </div>
-    </article>
-  `).join('')||'<div class="empty">검색된 클립이 없어요.</div>';
+  $('#clipGrid').innerHTML=list.map(c=>{
+    const originalUrl=String(c['SOOP주소']||'').trim();
+    const match=originalUrl.match(
+      /^https?:\/\/(?:vod\.)?sooplive\.com\/player\/(\d+)/i
+    );
+
+    const playerId=match?match[1]:'';
+    const embedUrl=playerId
+      ?`https://vod.sooplive.co.kr/player/${playerId}/embed`
+      :'';
+
+    return `
+      <article class="clip">
+        ${
+          embedUrl
+          ? `<div style="width:100%;aspect-ratio:16/9;background:#171717;">
+               <iframe
+                 src="${embedUrl}"
+                 title="${esc(c['클립제목'])}"
+                 style="width:100%;height:100%;border:0;display:block;"
+                 allowfullscreen
+                 allow="autoplay; fullscreen; picture-in-picture"
+                 loading="lazy">
+               </iframe>
+             </div>`
+          : `<div class="thumb">♫</div>`
+        }
+        <div class="clipbody">
+          <h3>${esc(c['클립제목'])}</h3>
+          <p>${esc(c['가수'])}</p>
+          <a href="${esc(originalUrl)}"
+             target="_blank"
+             rel="noopener noreferrer">
+             SOOP 원본 보기 ↗
+          </a>
+        </div>
+      </article>
+    `;
+  }).join('')||'<div class="empty">검색된 클립이 없어요.</div>';
 }
 
 /* 페이지 이동 */
