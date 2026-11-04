@@ -219,8 +219,18 @@ button{cursor:pointer}
 <section id="songsPage" class="page active">
  <div class="sectionhead"><div><h2>Song Book</h2><p>찾고 싶은 노래를 검색하거나 분류별로 둘러보세요.</p></div><span class="count" id="songCount">122곡</span></div>
  <div class="search"><span>⌕</span><input id="q" placeholder="노래 제목, 가수, 초성으로 검색"><button id="reset">초기화</button></div>
- <div class="filters" id="groups"></div><div class="filters" id="eras"></div>
- <div class="toolbar"><span class="count">노래 목록</span><select id="sort"><option value="title">제목순</option><option value="artist">가수순</option></select></div>
+<div class="filters" id="groups"></div>
+<div class="filters" id="eras"></div>
+<div class="filters" id="liveFilters"></div>
+
+<div class="toolbar">
+ <span class="count">노래 목록</span>
+ <select id="sort">
+  <option value="title">제목순</option>
+  <option value="artist">가수순</option>
+  <option value="live">LIVE 많은 순</option>
+ </select>
+</div>
  <div class="songlist" id="songList"></div><div class="pagination" id="songPagination"></div>
  <div class="notice">노래 옆의 ♡ LIVE 횟수를 누르면 해당 노래가 저장된 클립을 볼 수 있어요. 횟수는 클립 목록을 기준으로 자동 집계됩니다. 유튜브 아이콘은 노래방 검색, 가사 아이콘은 가사 검색으로 연결됩니다.</div>
 </section>
@@ -228,7 +238,8 @@ button{cursor:pointer}
 <section id="clipsPage" class="page">
  <div class="sectionhead"><div><h2>Clip Archive</h2><p>다시 보고 싶은 방송 속 노래 순간들</p></div><span class="count" id="clipCountLabel">CLIPS</span></div>
  <div class="search"><span>⌕</span><input id="clipQ" placeholder="노래 제목 또는 클립 제목 검색"></div>
- <div class="clipgrid" id="clipGrid"></div>
+<div class="filters" id="clipFilters"></div>
+<div class="clipgrid" id="clipGrid"></div>
  <div class="notice">클립을 누르면 화면 중앙의 큰 플레이어에서 재생됩니다. 재생이 안 되거나 제한되는 경우 팝업 아래의 SOOP 원본에서 보기 버튼을 눌러주세요.</div>
 </section>
 </main>
@@ -263,38 +274,78 @@ button{cursor:pointer}
 </div>
 
 <script>
-let songs=[],clips=[],group='전체',era='전체 시대';
+
+let songs=[],clips=[],aliases=[];
+let group='전체',era='전체 시대';
+let liveFilter='all',clipFilter='all';
 let currentPage=1;
 let visibleSongs=[],relatedClips=[];
 const PAGE_SIZE=20;
+
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function chosung(s){
  const c=['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
  return [...s].map(x=>{let n=x.charCodeAt(0)-44032;return n>=0&&n<=11171?c[Math.floor(n/588)]:x;}).join('');
 }
-
-/* 제목과 가수의 띄어쓰기 및 영문 대소문자 정리 */
 function normalizeSongText(value){
- return String(value||'')
-  .normalize('NFKC')
-  .toLowerCase()
-  .replace(/\s+/g,'')
-  .trim();
+ return String(value||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'').trim();
 }
 
-/* 노래 제목과 가수가 모두 일치해야 같은 노래로 집계 */
+/* 등록된 별칭만 같은 가수로 인식 */
+let aliasMap=new Map();
+let aliasGroups=new Map();
+
+function buildAliasMap(){
+ aliasMap=new Map();
+ aliasGroups=new Map();
+
+ aliases.forEach(item=>{
+  const main=String(item['대표 가수명']||'').trim();
+  const alias=String(item['별칭']||'').trim();
+  if(!main)return;
+
+  const mainKey=normalizeSongText(main);
+  if(!mainKey)return;
+
+  if(!aliasGroups.has(mainKey)){
+   aliasGroups.set(mainKey,new Set([mainKey]));
+  }
+
+  aliasMap.set(mainKey,mainKey);
+
+  if(alias){
+   const aliasKey=normalizeSongText(alias);
+   if(aliasKey){
+    aliasMap.set(aliasKey,mainKey);
+    aliasGroups.get(mainKey).add(aliasKey);
+   }
+  }
+ });
+}
+
+function artistKey(name){
+ const key=normalizeSongText(name);
+ return aliasMap.get(key)||key;
+}
+
+function artistSearchText(name){
+ const key=artistKey(name);
+ const terms=aliasGroups.get(key);
+ return terms?[...terms].join(' '):normalizeSongText(name);
+}
+
 function isSameSong(song,clip){
  const songTitle=normalizeSongText(song['노래제목']);
  const clipTitle=normalizeSongText(clip['클립제목']);
  const songArtist=normalizeSongText(song['가수']);
  const clipArtist=normalizeSongText(clip['가수']);
 
- if(!songTitle||!clipTitle||songTitle!==clipTitle)return false;
- return songArtist===clipArtist;
-}
+ if(!songTitle||!clipTitle||!songArtist||!clipArtist)return false;
+ if(songTitle!==clipTitle)return false;
 
-/* 해당 노래와 연결된 클립 찾기 */
+ return artistKey(songArtist)===artistKey(clipArtist);
+}
 function getSongClips(song){
  return clips.filter(clip=>isSameSong(song,clip));
 }
@@ -305,9 +356,8 @@ function showPage(page){
  $('#clipsPage').classList.toggle('active',page==='clips');
  window.scrollTo({top:0,behavior:'smooth'});
 }
-document.querySelectorAll('[data-page]').forEach(b=>{b.onclick=()=>showPage(b.dataset.page);});
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
 
-/* 통계 카드 클릭 이동 */
 document.querySelectorAll('[data-stat-page]').forEach(card=>{
  const go=()=>showPage(card.dataset.statPage);
  card.addEventListener('click',go);
@@ -316,21 +366,81 @@ document.querySelectorAll('[data-stat-page]').forEach(card=>{
  });
 });
 
+function renderGroups(){
+ let gs=['전체','K-POP','J-POP','POP'];
+ $('#groups').innerHTML=gs.map(g=>`<button class="chip ${g===group?'active':''}" data-group="${g}">${g}</button>`).join('');
+}
+function renderEras(){
+ let list=['전체 시대','1990년대','2000년대','2010년대','2020년대'];
+ $('#eras').innerHTML=list.map(e=>`<button class="chip ${e===era?'active':''}" data-era="${e}">${e}</button>`).join('');
+}
+function renderLiveFilters(){
+ const options=[
+  ['all','전체 노래'],
+  ['has','LIVE 있는 노래만']
+ ];
+ $('#liveFilters').innerHTML=options.map(([value,label])=>
+  `<button class="chip ${liveFilter===value?'active':''}" data-live="${value}">${label}</button>`
+ ).join('');
+}
+function renderClipFilters(){
+ const options=[
+  ['all','전체'],
+  ['솔로','솔로'],
+  ['합방','합방']
+ ];
+ $('#clipFilters').innerHTML=options.map(([value,label])=>
+  `<button class="chip ${clipFilter===value?'active':''}" data-clip-filter="${value}">${label}</button>`
+ ).join('');
+}
+
 function renderSongs(){
- let q=$('#q').value.trim().toLowerCase().replace(/\s/g,'');
- let list=songs.filter(s=>(group==='전체'||String(s['곡분류']||'')===group)&&(era==='전체 시대'||String(s['시대']||'')===era)&&[s['노래제목'],s['가수'],chosung(s['노래제목']),chosung(s['가수'])].some(x=>String(x||'').toLowerCase().replace(/\s/g,'').includes(q)));
- list.sort((a,b)=>$('#sort').value==='artist'?String(a['가수']||'').localeCompare(String(b['가수']||''),'ko'):String(a['노래제목']||'').localeCompare(String(b['노래제목']||''),'ko'));
+ const q=normalizeSongText($('#q').value);
+
+ let list=songs.filter(s=>{
+  const title=normalizeSongText(s['노래제목']);
+  const artist=normalizeSongText(s['가수']);
+  const artistTerms=artistSearchText(s['가수']);
+  const titleInitial=normalizeSongText(chosung(s['노래제목']));
+  const artistInitial=normalizeSongText(chosung(s['가수']));
+
+  const searchMatch=!q||[
+   title,artist,artistTerms,titleInitial,artistInitial
+  ].some(x=>x.includes(q));
+
+  const groupMatch=group==='전체'||String(s['곡분류']||'')===group;
+  const eraMatch=era==='전체 시대'||String(s['시대']||'')===era;
+  const liveCount=getSongClips(s).length;
+  const liveMatch=liveFilter==='all'||liveCount>0;
+
+  return searchMatch&&groupMatch&&eraMatch&&liveMatch;
+ });
+
+ list.sort((a,b)=>{
+  if($('#sort').value==='artist'){
+   return String(a['가수']||'').localeCompare(String(b['가수']||''),'ko');
+  }
+  if($('#sort').value==='live'){
+   return getSongClips(b).length-getSongClips(a).length;
+  }
+  return String(a['노래제목']||'').localeCompare(String(b['노래제목']||''),'ko');
+ });
+
  $('#songCount').textContent=list.length+'곡';
+
  const totalPages=Math.ceil(list.length/PAGE_SIZE);
- if(!totalPages)currentPage=1;else currentPage=Math.min(Math.max(currentPage,1),totalPages);
+ if(!totalPages)currentPage=1;
+ else currentPage=Math.min(Math.max(currentPage,1),totalPages);
+
  const pageSongs=list.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);
  visibleSongs=pageSongs;
 
  $('#songList').innerHTML=pageSongs.length?pageSongs.map((s,i)=>{
-  let t=s['노래제목']||'',a=s['가수']||'';
-  let liveCount=getSongClips(s).length;
-  let yt='https://www.youtube.com/results?search_query='+encodeURIComponent(t+' '+a+' 노래방');
-  let ly='https://www.google.com/search?q='+encodeURIComponent(t+' '+a+' 가사');
+  const t=s['노래제목']||'',a=s['가수']||'';
+  const liveCount=getSongClips(s).length;
+  const yt='https://www.youtube.com/results?search_query='+encodeURIComponent(t+' '+a+' 노래방');
+  const ly='https://www.google.com/search?q='+encodeURIComponent(t+' '+a+' 가사');
+
   return `<div class="songrow">
    <div class="songicon">♫</div>
    <button class="song-main" type="button" data-song-index="${i}" aria-label="${esc(t)} ${esc(a)} 라이브 클립 ${liveCount}개 보기">
@@ -349,9 +459,15 @@ function renderSongs(){
   </div>`;
  }).join(''):'<div class="empty">검색 결과가 없어요. 다른 제목이나 가수로 검색해보세요.</div>';
 
- if(totalPages<=1){$('#songPagination').innerHTML='';return;}
+ if(totalPages<=1){
+  $('#songPagination').innerHTML='';
+  return;
+ }
+
  let buttons=`<button data-page-num="${currentPage-1}" ${currentPage===1?'disabled':''}>이전</button>`;
- for(let p=1;p<=totalPages;p++)buttons+=`<button data-page-num="${p}" class="${p===currentPage?'active':''}">${p}</button>`;
+ for(let p=1;p<=totalPages;p++){
+  buttons+=`<button data-page-num="${p}" class="${p===currentPage?'active':''}">${p}</button>`;
+ }
  buttons+=`<button data-page-num="${currentPage+1}" ${currentPage===totalPages?'disabled':''}>다음</button>`;
  $('#songPagination').innerHTML=buttons;
 }
@@ -385,55 +501,97 @@ function closeSongClips(){
  if(!$('#videoModal').classList.contains('open'))document.body.classList.remove('modal-open');
 }
 
-function renderGroups(){
- let gs=['전체','K-POP','J-POP','POP'];
- $('#groups').innerHTML=gs.map(g=>`<button class="chip ${g===group?'active':''}" data-group="${g}">${g}</button>`).join('');
-}
-function renderEras(){
- let eras=['전체 시대','1990년대','2000년대','2010년대','2020년대'];
- $('#eras').innerHTML=eras.map(e=>`<button class="chip ${e===era?'active':''}" data-era="${e}">${e}</button>`).join('');
-}
 function getEmbedUrl(url){
  const m=String(url||'').trim().match(
   /^https?:\/\/(?:vod\.)?sooplive\.co(?:m|\.kr)\/player\/(\d+)/i
  );
  return m?`https://vod.sooplive.co.kr/player/${m[1]}/embed`:'';
 }
+
 function openClip(c){
  const originalUrl=String(c['SOOP주소']||'').trim();
  if(!originalUrl){alert('등록된 SOOP 원본 주소가 없습니다.');return;}
 
  closeSongClips();
-
  $('#videoTitle').textContent=c['클립제목']||'클립 영상';
  $('#videoArtist').textContent=c['가수']||'';
  $('#originalLink').href=originalUrl;
+
  const embedUrl=getEmbedUrl(originalUrl);
- $('#videoFrame').innerHTML=embedUrl?`<iframe src="${esc(embedUrl)}" title="${esc(c['클립제목']||'SOOP 클립')}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`:'<div class="empty" style="height:100%;display:grid;place-items:center;color:#fff">팝업 재생 주소를 확인할 수 없어요. SOOP 원본에서 시청해주세요.</div>';
+ $('#videoFrame').innerHTML=embedUrl
+  ?`<iframe src="${esc(embedUrl)}" title="${esc(c['클립제목']||'SOOP 클립')}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+  :'<div class="empty" style="height:100%;display:grid;place-items:center;color:#fff">팝업 재생 주소를 확인할 수 없어요. SOOP 원본에서 시청해주세요.</div>';
+
  $('#videoModal').classList.add('open');
  $('#videoModal').setAttribute('aria-hidden','false');
  document.body.classList.add('modal-open');
  $('#closeVideo').focus();
 }
+
 function closeClip(){
  $('#videoModal').classList.remove('open');
  $('#videoModal').setAttribute('aria-hidden','true');
  $('#videoFrame').innerHTML='';
  if(!$('#songClipsModal').classList.contains('open'))document.body.classList.remove('modal-open');
 }
+
 function renderClips(){
- let q=$('#clipQ').value.trim().toLowerCase();
- let list=clips.filter(c=>(String(c['클립제목']||'')+' '+String(c['가수']||'')).toLowerCase().includes(q));
+ const q=normalizeSongText($('#clipQ').value);
+
+ const list=clips.filter(c=>{
+  const category=String(c['클립분류']||'').trim();
+  const categoryMatch=clipFilter==='all'||category===clipFilter;
+  const searchText=normalizeSongText((c['클립제목']||'')+' '+(c['가수']||''));
+  return categoryMatch&&(!q||searchText.includes(q));
+ });
+
  $('#clipCountLabel').textContent=list.length+' CLIPS';
  window.visibleClips=list;
- $('#clipGrid').innerHTML=list.map((c,i)=>`<article class="clip"><button class="clip-open" type="button" data-clip-index="${i}" aria-label="${esc(c['클립제목']||'클립')} 재생"><div class="thumb"><span class="thumb-icon">▶</span></div></button><div class="clipbody"><h3>${esc(c['클립제목']||'제목 미등록')}</h3><p>${esc(c['가수']||'가수 미등록')}</p></div></article>`).join('')||'<div class="empty">검색된 클립이 없어요.</div>';
+
+ $('#clipGrid').innerHTML=list.map((c,i)=>{
+  const category=String(c['클립분류']||'').trim();
+  return `<article class="clip">
+   <button class="clip-open" type="button" data-clip-index="${i}" aria-label="${esc(c['클립제목']||'클립')} 재생">
+    <div class="thumb"><span class="thumb-icon">▶</span></div>
+   </button>
+   <div class="clipbody">
+    <h3>${esc(c['클립제목']||'제목 미등록')}</h3>
+    <p>${esc(c['가수']||'가수 미등록')}${category?` · ${esc(category)}`:''}</p>
+   </div>
+  </article>`;
+ }).join('')||'<div class="empty">검색된 클립이 없어요.</div>';
 }
 
+/* 검색 및 필터 */
 $('#q').oninput=()=>{currentPage=1;renderSongs();};
 $('#sort').onchange=()=>{currentPage=1;renderSongs();};
-$('#reset').onclick=()=>{$('#q').value='';group='전체';era='전체 시대';currentPage=1;renderGroups();renderEras();renderSongs();};
-$('#groups').onclick=e=>{let b=e.target.closest('[data-group]');if(b){group=b.dataset.group;currentPage=1;renderGroups();renderSongs();}};
-$('#eras').onclick=e=>{let b=e.target.closest('[data-era]');if(b){era=b.dataset.era;currentPage=1;renderEras();renderSongs();}};
+$('#reset').onclick=()=>{
+ $('#q').value='';
+ group='전체';
+ era='전체 시대';
+ liveFilter='all';
+ currentPage=1;
+ renderGroups();
+ renderEras();
+ renderLiveFilters();
+ renderSongs();
+};
+$('#groups').onclick=e=>{
+ const b=e.target.closest('[data-group]');
+ if(b){group=b.dataset.group;currentPage=1;renderGroups();renderSongs();}
+};
+$('#eras').onclick=e=>{
+ const b=e.target.closest('[data-era]');
+ if(b){era=b.dataset.era;currentPage=1;renderEras();renderSongs();}
+};
+$('#liveFilters').onclick=e=>{
+ const b=e.target.closest('[data-live]');
+ if(b){liveFilter=b.dataset.live;currentPage=1;renderLiveFilters();renderSongs();}
+};
+$('#clipFilters').onclick=e=>{
+ const b=e.target.closest('[data-clip-filter]');
+ if(b){clipFilter=b.dataset.clipFilter;renderClipFilters();renderClips();}
+};
 
 $('#songList').onclick=e=>{
  const b=e.target.closest('[data-song-index]');
@@ -441,15 +599,13 @@ $('#songList').onclick=e=>{
  const song=visibleSongs[Number(b.dataset.songIndex)];
  if(song)openSongClips(song);
 };
-
 $('#songPagination').onclick=e=>{
- let b=e.target.closest('[data-page-num]');
+ const b=e.target.closest('[data-page-num]');
  if(!b||b.disabled)return;
  currentPage=Number(b.dataset.pageNum);
  renderSongs();
  $('#songList').scrollIntoView({behavior:'smooth',block:'start'});
 };
-
 $('#relatedClipList').onclick=e=>{
  const b=e.target.closest('[data-related-index]');
  if(!b)return;
@@ -461,14 +617,12 @@ $('#closeSongClips').onclick=closeSongClips;
 $('#songClipsModal').addEventListener('click',e=>{
  if(e.target===$('#songClipsModal'))closeSongClips();
 });
-
 $('#clipQ').oninput=renderClips;
 $('#clipGrid').onclick=e=>{
- let b=e.target.closest('[data-clip-index]');
- if(b){
-  let c=window.visibleClips?.[Number(b.dataset.clipIndex)];
-  if(c)openClip(c);
- }
+ const b=e.target.closest('[data-clip-index]');
+ if(!b)return;
+ const c=window.visibleClips?.[Number(b.dataset.clipIndex)];
+ if(c)openClip(c);
 };
 $('#closeVideo').onclick=closeClip;
 $('#videoModal').addEventListener('click',e=>{
@@ -481,29 +635,49 @@ document.addEventListener('keydown',e=>{
  }
 });
 
+/* 구글 시트 연결 */
 const API_URL='https://script.google.com/macros/s/AKfycbwr7lNcZpTrwyOjHlEUcNbDtudqUTak7qJJEFIIC8jwnBP77oRpcgHiEzQbJEsBgjX_/exec';
+
 function loadSheetData(){
  return new Promise((resolve,reject)=>{
   const cb='songbookCallback';
-  const timer=setTimeout(()=>{delete window[cb];reject(new Error('API timeout'));},15000);
+  const timer=setTimeout(()=>{
+   delete window[cb];
+   reject(new Error('API timeout'));
+  },15000);
+
   window[cb]=data=>{
-   clearTimeout(timer);delete window[cb];
-   if(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips))resolve(data);
-   else reject(new Error('Invalid API response'));
+   clearTimeout(timer);
+   delete window[cb];
+   if(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips)){
+    resolve(data);
+   }else reject(new Error('Invalid API response'));
   };
+
   const script=document.createElement('script');
   script.src=API_URL+'?callback='+cb;
-  script.onerror=()=>{clearTimeout(timer);delete window[cb];reject(new Error('API load failed'));};
+  script.onerror=()=>{
+   clearTimeout(timer);
+   delete window[cb];
+   reject(new Error('API load failed'));
+  };
   document.head.appendChild(script);
  });
 }
+
 loadSheetData().then(data=>{
  songs=data.songs;
  clips=data.clips;
+ aliases=Array.isArray(data.aliases)?data.aliases:[];
+ buildAliasMap();
+
  $('#songTotal').textContent=songs.length;
  $('#clipTotal').textContent=clips.length;
+
  renderGroups();
  renderEras();
+ renderLiveFilters();
+ renderClipFilters();
  renderSongs();
  renderClips();
 }).catch(()=>{
