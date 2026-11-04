@@ -191,7 +191,7 @@ button{cursor:pointer}
   <p>노래를 찾고, 다시 보고 싶은 순간을 모아두는 나만의 음악 아카이브.</p>
   <div class="hero-tags"><span class="tag">SONGBOOK</span><span class="tag">CLIP ARCHIVE</span><span class="tag">MADE WITH ♡</span></div>
  </div>
- <div class="mascot"><img src="./hero-character.jpg" alt="빡쏘 캐릭터"></div>
+ <div class="mascot"><img src="./hero-character.gif" alt="빡쏘 캐릭터"></div>
 </section>
 <div class="stats">
  <div class="stat" role="button" tabindex="0" data-stat-page="songs" aria-label="등록된 노래 목록으로 이동">
@@ -411,14 +411,27 @@ function openSongClips(song){
  relatedClips=getSongClips(song);
  $('#songClipsTitle').textContent=song['노래제목']||'노래';
  $('#songClipsSubtitle').textContent=(song['가수']||'가수 미등록')+' · 라이브 '+relatedClips.length+'회';
+
  $('#relatedClipList').innerHTML=relatedClips.length
-  ?relatedClips.map((clip,i)=>`
-   <button class="related-clip" type="button" data-related-index="${i}">
-    <span class="related-play">▶</span>
-    <span class="related-info"><strong>${esc(clip['클립제목']||'제목 미등록')}</strong><span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립</span></span>
-    <span class="related-arrow">›</span>
-   </button>`).join('')
+  ?relatedClips.map((clip,i)=>{
+   const category=String(clip['클립분류']||'').trim();
+   const people=parseParticipants(clip['참여자']);
+   const participantText=category==='합방'&&people.length
+    ?`<span>같이한 사람 · ${people.map(esc).join(', ')}</span>`
+    :'';
+   return `
+    <button class="related-clip" type="button" data-related-index="${i}">
+     <span class="related-play">▶</span>
+     <span class="related-info">
+      <strong>${esc(clip['클립제목']||'제목 미등록')}</strong>
+      <span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립 · ${esc(category||'분류 미등록')}</span>
+      ${participantText}
+     </span>
+     <span class="related-arrow">›</span>
+    </button>`;
+  }).join('')
   :'<div class="related-empty">아직 저장된 라이브 클립이 없어요.<br>클립 보관함에 이 노래를 추가하면 여기에 표시됩니다. ♡</div>';
+
  $('#songClipsModal').classList.add('open');
  $('#songClipsModal').setAttribute('aria-hidden','false');
  document.body.classList.add('modal-open');
