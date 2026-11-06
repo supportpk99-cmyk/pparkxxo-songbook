@@ -177,6 +177,24 @@ button{cursor:pointer}
 @media(prefers-reduced-motion:reduce){
  .stat,.stat-icon,.live-badge,.related-clip{transition:none}
 }
+
+/* 관리자 코드 입력 팝업: 홈페이지 디자인과 통일 */
+.admin-code-modal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(42,25,36,.58);backdrop-filter:blur(6px)}
+.admin-code-modal.open{display:flex}
+.admin-code-dialog{width:min(390px,100%);padding:25px;background:linear-gradient(155deg,#fffafd,#fff4f8);border:1px solid #efd9e3;border-radius:24px;box-shadow:0 28px 90px #75475e33;text-align:center}
+.admin-code-mark{width:48px;height:48px;margin:0 auto 13px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(140deg,#f1c5d8,#e4d8f2);color:#995876;font-size:22px;box-shadow:0 7px 20px #d59bb733}
+.admin-code-dialog h3{margin:0;color:#75475e;font-family:Georgia,"Noto Serif KR",serif;font-size:22px}
+.admin-code-dialog p{margin:8px 0 18px;color:#a18795;font-size:12px;line-height:1.6}
+.admin-code-input{display:block;width:100%;height:49px;border:1px solid #efdee6;border-radius:14px;background:#fff;padding:0 15px;text-align:center;letter-spacing:.38em;font-size:20px;font-weight:800;color:#96566f;outline:none;box-shadow:0 7px 20px #98647b0d}
+.admin-code-input:focus{border-color:#dba5bd;box-shadow:0 0 0 3px #f6e3eb}
+.admin-code-error{min-height:20px;margin:8px 0 4px;color:#c45d79;font-size:11px}
+.admin-code-actions{display:flex;gap:8px;margin-top:10px}
+.admin-code-actions button{flex:1;border:1px solid #efdee6;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:800}
+.admin-code-cancel{background:#fff;color:#92778a}
+.admin-code-submit{border-color:#b96b8f!important;background:linear-gradient(135deg,#c47b9b,#ad6487);color:#fff;box-shadow:0 7px 17px #bd718c33}
+.admin-code-submit:disabled{opacity:.55;cursor:wait}
+@media(max-width:420px){.admin-code-dialog{padding:22px 18px;border-radius:20px}}
+
 </style>
 </head>
 <body>
@@ -229,6 +247,21 @@ button{cursor:pointer}
 </main>
 <footer class="foot">♡ PPARKXXO'S SONGBOOK · TOUGH OUTSIDE, SOFT INSIDE ♡</footer>
 </div>
+
+<div class="admin-code-modal" id="adminCodeModal" aria-hidden="true">
+ <div class="admin-code-dialog" role="dialog" aria-modal="true" aria-labelledby="adminCodeTitle">
+  <div class="admin-code-mark" aria-hidden="true">♫</div>
+  <h3 id="adminCodeTitle">관리자 바로가기</h3>
+  <p>관리자 페이지에 접속하려면<br>숫자 코드를 입력해주세요.</p>
+  <input class="admin-code-input" id="adminEntryCode" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="••••" aria-label="관리자 바로가기 숫자 코드">
+  <div class="admin-code-error" id="adminCodeError" role="status" aria-live="polite"></div>
+  <div class="admin-code-actions">
+   <button class="admin-code-cancel" id="adminCodeCancel" type="button">취소</button>
+   <button class="admin-code-submit" id="adminCodeSubmit" type="button">확인</button>
+  </div>
+ </div>
+</div>
+
 <div class="songclips-modal" id="songClipsModal" aria-hidden="true">
  <div class="songclips-dialog" role="dialog" aria-modal="true" aria-labelledby="songClipsTitle">
   <div class="songclips-head">
@@ -570,55 +603,55 @@ document.addEventListener('keydown',e=>{
   else if($('#songClipsModal').classList.contains('open'))closeSongClips();
  }
 });
-/* 관리자 바로가기: 숫자 코드는 서버에서 검증하며 브라우저에 저장하지 않습니다. */
+/* 관리자 바로가기: 코드는 서버에서 검증하며 브라우저에 저장하지 않습니다. */
 const API_URL='https://script.google.com/macros/s/AKfycbwr7lNcZpTrwyOjHlEUcNbDtudqUTak7qJJEFIIC8jwnBP77oRpcgHiEzQbJEsBgjX_/exec';
+const adminCodeModal=$('#adminCodeModal');
+const adminCodeInput=$('#adminEntryCode');
+const adminCodeError=$('#adminCodeError');
+const adminCodeSubmit=$('#adminCodeSubmit');
+function openAdminCodeModal(){
+ adminCodeInput.value='';adminCodeError.textContent='';adminCodeSubmit.disabled=false;
+ adminCodeModal.classList.add('open');adminCodeModal.setAttribute('aria-hidden','false');
+ document.body.classList.add('modal-open');
+ setTimeout(()=>adminCodeInput.focus(),40);
+}
+function closeAdminCodeModal(){
+ adminCodeModal.classList.remove('open');adminCodeModal.setAttribute('aria-hidden','true');
+ document.body.classList.remove('modal-open');
+}
 function verifyAdminEntryCode(code){
  return new Promise((resolve,reject)=>{
   const cb='songbookAdminCodeCallback';
-  const timer=setTimeout(()=>{
-   delete window[cb];
-   script.remove();
-   reject(new Error('관리자 코드 확인 시간이 초과됐어요.'));
-  },12000);
   const script=document.createElement('script');
-  const cleanup=()=>{
-   clearTimeout(timer);
-   delete window[cb];
-   script.remove();
-  };
-  window[cb]=result=>{
-   cleanup();
-   if(result&&result.success===true)resolve(true);
-   else resolve(false);
-  };
-  script.onerror=()=>{
-   cleanup();
-   reject(new Error('관리자 코드 확인에 실패했어요.'));
-  };
+  const timer=setTimeout(()=>{cleanup();reject(new Error('관리자 코드 확인 시간이 초과됐어요.'));},12000);
+  const cleanup=()=>{clearTimeout(timer);delete window[cb];script.remove();};
+  window[cb]=result=>{cleanup();resolve(!!(result&&result.success===true));};
+  script.onerror=()=>{cleanup();reject(new Error('관리자 코드 확인에 실패했어요.'));};
   script.src=API_URL+'?action=verifyAdminEntryCode&code='+encodeURIComponent(code)+'&callback='+cb;
   document.head.appendChild(script);
  });
 }
-$('#adminShortcut').onclick=async()=>{
- const code=prompt('관리자 바로가기 코드를 입력해주세요. (숫자 4~6자리)');
- if(code===null)return;
- const clean=String(code).trim();
- if(!/^\d{4,6}$/.test(clean)){
-  alert('숫자 4~6자리로 입력해주세요.');
-  return;
- }
- const button=$('#adminShortcut');
- button.disabled=true;
+$('#adminShortcut').onclick=openAdminCodeModal;
+$('#adminCodeCancel').onclick=closeAdminCodeModal;
+adminCodeModal.addEventListener('click',e=>{if(e.target===adminCodeModal)closeAdminCodeModal();});
+adminCodeInput.addEventListener('input',()=>{adminCodeInput.value=adminCodeInput.value.replace(/\D/g,'').slice(0,6);adminCodeError.textContent='';});
+adminCodeInput.addEventListener('keydown',e=>{if(e.key==='Enter')adminCodeSubmit.click();});
+adminCodeSubmit.onclick=async()=>{
+ const clean=adminCodeInput.value.trim();
+ if(!/^\d{4,6}$/.test(clean)){adminCodeError.textContent='숫자 4~6자리로 입력해주세요.';adminCodeInput.focus();return;}
+ // 새 탭은 사용자 클릭 시점에 먼저 열어 팝업 차단을 피합니다.
+ const adminTab=window.open('about:blank','_blank');
+ if(!adminTab){adminCodeError.textContent='새 창이 차단됐어요. 브라우저에서 팝업을 허용해주세요.';return;}
+ adminTab.opener=null;
+ adminCodeSubmit.disabled=true;adminCodeError.textContent='코드를 확인하고 있어요…';
  try{
   const verified=await verifyAdminEntryCode(clean);
-  if(verified)window.location.href=API_URL+'?page=admin';
-  else alert('관리자 바로가기 코드가 올바르지 않습니다.');
- }catch(error){
-  alert(error.message||'코드 확인 중 오류가 발생했어요.');
- }finally{
-  button.disabled=false;
- }
+  if(verified){adminTab.location.href=API_URL+'?page=admin';closeAdminCodeModal();}
+  else{adminTab.close();adminCodeError.textContent='관리자 바로가기 코드가 올바르지 않습니다.';adminCodeInput.select();}
+ }catch(error){adminTab.close();adminCodeError.textContent=error.message||'코드 확인 중 오류가 발생했어요.';}
+ finally{adminCodeSubmit.disabled=false;}
 };
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&adminCodeModal.classList.contains('open'))closeAdminCodeModal();});
 /* 구글 시트 연결 및 첫 화면 캐시 */
 const SONGBOOK_CACHE_KEY='pparkxxo_songbook_cache_v1';
 function isValidSheetData(data){
