@@ -73,9 +73,9 @@ button{cursor:pointer}
 .song-main:hover .live-badge{background:#f9e4ed;transform:translateY(-1px)}
 .song-main:focus-visible{outline:2px solid #dba5bd;outline-offset:4px;border-radius:5px}
 .genre{font-size:11px;color:#9b7890}
-.key{font-size:10px;color:#a77a90;text-align:right}
-.actions{display:flex;justify-content:flex-end;gap:7px}
-.actions a{width:29px;height:29px;display:grid;place-items:center;text-decoration:none;background:#fff4f8;border-radius:9px;color:#ba6689;font-size:12px}
+.key{display:block;flex:0 0 auto;min-width:max-content;white-space:nowrap;font-size:10px;color:#a77a90;text-align:right}
+.actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0;white-space:nowrap}
+.actions a{flex:0 0 29px;width:29px;height:29px;display:grid;place-items:center;text-decoration:none;background:#fff4f8;border-radius:9px;color:#ba6689;font-size:12px}
 .empty{padding:45px;text-align:center;color:#a58d9b;font-size:13px}
 .clipgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .clip{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}
@@ -130,7 +130,7 @@ button{cursor:pointer}
  .top{align-items:flex-start}
  .brand{font-size:14px}
  .topnav{gap:5px}
- .nav{padding:9px 11px;font-size:11px}
+ .nav{padding:9px 8px;font-size:10px}
  .hero{padding:28px 22px;min-height:220px}
  .mascot{width:130px;height:130px;border-radius:25px;border-width:4px}
  .hero h1{font-size:34px}
@@ -138,14 +138,14 @@ button{cursor:pointer}
  .stats{margin:13px 0 22px}
  .stat{min-width:0;flex:1;padding:10px 12px}
  .stat b{font-size:18px}
- .songrow{grid-template-columns:34px minmax(0,1fr) 62px 64px;gap:7px;padding:11px 9px}
+ .songrow{grid-template-columns:34px minmax(0,1fr) 62px 102px;gap:7px;padding:11px 9px}
  .songicon{width:32px;height:32px}
  .songtitle{font-size:12px}
  .artist{font-size:10px}
  .genre,.key{font-size:9px}
  .live-badge{font-size:9px;padding:3px 6px}
  .actions{gap:4px}
- .actions a{width:25px;height:25px}
+ .actions a{flex-basis:25px;width:25px;height:25px}
  .clipgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
  .clipbody{padding:11px}
  .clipbody h3{font-size:12px}
@@ -163,9 +163,10 @@ button{cursor:pointer}
  .mascot{width:96px;height:96px;border-radius:20px}
  .hero{padding:24px 17px}
  .hero h1{font-size:29px}
- .songrow{grid-template-columns:30px minmax(0,1fr) 48px 55px;gap:5px;padding:10px 7px}
+ .songrow{grid-template-columns:30px minmax(0,1fr) 48px 98px;gap:5px;padding:10px 7px}
  .songicon{width:29px;height:29px}
- .actions a{width:22px;height:22px}
+ .actions{gap:3px}
+ .actions a{flex-basis:22px;width:22px;height:22px}
  .genre{font-size:8px}
  .live-badge{font-size:8px;padding:3px 5px}
 }
@@ -182,7 +183,7 @@ button{cursor:pointer}
 <div class="shell">
 <header class="top">
  <div class="brand"><div class="mark">♫</div><div>빡쏘의 노래서랍 ♡<small>PPARKXXO'S SONGBOOK</small></div></div>
- <nav class="topnav"><button class="nav active" data-page="songs">노래책</button><button class="nav" data-page="clips">클립 모음</button></nav>
+ <nav class="topnav"><button class="nav active" data-page="songs">노래책</button><button class="nav" data-page="clips">클립 모음</button><button class="nav" id="adminShortcut" type="button">관리자</button></nav>
 </header>
 <section class="hero">
  <div class="hero-copy">
@@ -569,24 +570,61 @@ document.addEventListener('keydown',e=>{
   else if($('#songClipsModal').classList.contains('open'))closeSongClips();
  }
 });
-/* 구글 시트 연결 */
+/* 관리자 바로가기: 숫자 코드는 서버에서 검증하며 브라우저에 저장하지 않습니다. */
 const API_URL='https://script.google.com/macros/s/AKfycbwr7lNcZpTrwyOjHlEUcNbDtudqUTak7qJJEFIIC8jwnBP77oRpcgHiEzQbJEsBgjX_/exec';
-function loadSheetData(){
+function verifyAdminEntryCode(code){
  return new Promise((resolve,reject)=>{
-  const cb='songbookCallback';
-  const timer=setTimeout(()=>{delete window[cb];reject(new Error('API timeout'));},15000);
-  window[cb]=data=>{
-   clearTimeout(timer);delete window[cb];
-   if(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips))resolve(data);
-   else reject(new Error('Invalid API response'));
-  };
+  const cb='songbookAdminCodeCallback';
+  const timer=setTimeout(()=>{
+   delete window[cb];
+   script.remove();
+   reject(new Error('관리자 코드 확인 시간이 초과됐어요.'));
+  },12000);
   const script=document.createElement('script');
-  script.src=API_URL+'?callback='+cb;
-  script.onerror=()=>{clearTimeout(timer);delete window[cb];reject(new Error('API load failed'));};
+  const cleanup=()=>{
+   clearTimeout(timer);
+   delete window[cb];
+   script.remove();
+  };
+  window[cb]=result=>{
+   cleanup();
+   if(result&&result.success===true)resolve(true);
+   else resolve(false);
+  };
+  script.onerror=()=>{
+   cleanup();
+   reject(new Error('관리자 코드 확인에 실패했어요.'));
+  };
+  script.src=API_URL+'?action=verifyAdminEntryCode&code='+encodeURIComponent(code)+'&callback='+cb;
   document.head.appendChild(script);
  });
 }
-loadSheetData().then(data=>{
+$('#adminShortcut').onclick=async()=>{
+ const code=prompt('관리자 바로가기 코드를 입력해주세요. (숫자 4~6자리)');
+ if(code===null)return;
+ const clean=String(code).trim();
+ if(!/^\d{4,6}$/.test(clean)){
+  alert('숫자 4~6자리로 입력해주세요.');
+  return;
+ }
+ const button=$('#adminShortcut');
+ button.disabled=true;
+ try{
+  const verified=await verifyAdminEntryCode(clean);
+  if(verified)window.location.href=API_URL+'?page=admin';
+  else alert('관리자 바로가기 코드가 올바르지 않습니다.');
+ }catch(error){
+  alert(error.message||'코드 확인 중 오류가 발생했어요.');
+ }finally{
+  button.disabled=false;
+ }
+};
+/* 구글 시트 연결 및 첫 화면 캐시 */
+const SONGBOOK_CACHE_KEY='pparkxxo_songbook_cache_v1';
+function isValidSheetData(data){
+ return !!(data&&data.success&&Array.isArray(data.songs)&&Array.isArray(data.clips));
+}
+function renderAllData(data){
  songs=data.songs;
  clips=data.clips;
  aliases=Array.isArray(data.aliases)?data.aliases:[];
@@ -600,9 +638,57 @@ loadSheetData().then(data=>{
  renderCollaboratorFilters();
  renderSongs();
  renderClips();
+}
+function readSongbookCache(){
+ try{
+  const raw=localStorage.getItem(SONGBOOK_CACHE_KEY);
+  if(!raw)return null;
+  const cached=JSON.parse(raw);
+  return isValidSheetData(cached)?cached:null;
+ }catch(error){return null;}
+}
+function saveSongbookCache(data){
+ try{localStorage.setItem(SONGBOOK_CACHE_KEY,JSON.stringify(data));}
+ catch(error){/* 저장 공간 또는 브라우저 설정 문제는 무시하고 온라인 데이터 표시를 계속합니다. */}
+}
+function loadSheetData(){
+ return new Promise((resolve,reject)=>{
+  const cb='songbookCallback';
+  const timer=setTimeout(()=>{cleanup();reject(new Error('API timeout'));},15000);
+  const script=document.createElement('script');
+  const cleanup=()=>{
+   clearTimeout(timer);
+   delete window[cb];
+   script.onerror=null;
+   script.remove();
+  };
+  window[cb]=data=>{
+   cleanup();
+   if(isValidSheetData(data))resolve(data);
+   else reject(new Error('Invalid API response'));
+  };
+  script.onerror=()=>{cleanup();reject(new Error('API load failed'));};
+  script.src=API_URL+'?callback='+cb;
+  document.head.appendChild(script);
+ });
+}
+const cachedSongbook=readSongbookCache();
+if(cachedSongbook)renderAllData(cachedSongbook);
+else{
+ renderGroups();
+ renderEras();
+ renderLiveFilters();
+ renderClipFilters();
+ renderCollaboratorFilters();
+}
+loadSheetData().then(data=>{
+ saveSongbookCache(data);
+ renderAllData(data);
 }).catch(()=>{
- $('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';
- $('#clipGrid').innerHTML='<div class="empty">클립 목록을 불러오지 못했어요. 잠시 후 새로고침해주세요.</div>';
+ if(!cachedSongbook){
+  $('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';
+  $('#clipGrid').innerHTML='<div class="empty">클립 목록을 불러오지 못했어요. 잠시 후 새로고침해주세요.</div>';
+ }
 });
 </script>
 </body>
