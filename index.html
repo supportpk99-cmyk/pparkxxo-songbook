@@ -67,6 +67,48 @@ button,input,select{font:inherit}button{cursor:pointer}
 @media(hover:none){.stat:hover{transform:none;box-shadow:var(--shadow);border-color:var(--line)}.stat:active{transform:scale(.985)}}
 @media(prefers-reduced-motion:reduce){.stat,.related-clip{transition:none}}
 .admin-code-modal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(42,25,36,.58);backdrop-filter:blur(6px)}.admin-code-modal.open{display:flex}.admin-code-dialog{width:min(390px,100%);padding:25px;background:linear-gradient(155deg,#fffafd,#fff4f8);border:1px solid #efd9e3;border-radius:24px;box-shadow:0 28px 90px #75475e33;text-align:center}.admin-code-mark{width:48px;height:48px;margin:0 auto 13px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(140deg,#f1c5d8,#e4d8f2);color:#995876;font-size:22px;box-shadow:0 7px 20px #d59bb733}.admin-code-dialog h3{margin:0;color:#75475e;font-family:Georgia,"Noto Serif KR",serif;font-size:22px}.admin-code-dialog p{margin:8px 0 18px;color:#a18795;font-size:12px;line-height:1.6}.admin-code-input{display:block;width:100%;height:49px;border:1px solid #efdee6;border-radius:14px;background:#fff;padding:0 15px;text-align:center;letter-spacing:.38em;font-size:20px;font-weight:800;color:#96566f;outline:none;box-shadow:0 7px 20px #98647b0d}.admin-code-input:focus{border-color:#dba5bd;box-shadow:0 0 0 3px #f6e3eb}.admin-code-error{min-height:20px;margin:8px 0 4px;color:#c45d79;font-size:11px}.admin-code-actions{display:flex;gap:8px;margin-top:10px}.admin-code-actions button{flex:1;border:1px solid #efdee6;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:800}.admin-code-cancel{background:#fff;color:#92778a}.admin-code-submit{border-color:#b96b8f!important;background:linear-gradient(135deg,#c47b9b,#ad6487);color:#fff;box-shadow:0 7px 17px #bd718c33}.admin-code-submit:disabled{opacity:.55;cursor:wait}@media(max-width:420px){.admin-code-dialog{padding:22px 18px;border-radius:20px}}
+/* 노래 목록 + 오른쪽 상세 패널 */
+.song-workspace{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.85fr);gap:14px;align-items:start}
+.song-workspace>div{min-width:0}
+.songrow{grid-template-columns:28px minmax(0,1fr) 76px 52px;gap:7px;padding:7px 10px}
+.songicon{width:27px;height:27px}
+.songtitle{font-size:11px}
+.artist{font-size:9px}
+.songrow.selected{background:#fff3f8;box-shadow:inset 3px 0 #c47b9b}
+.song-row-actions{display:flex;gap:4px;justify-content:flex-end;grid-column:1/-1;padding-left:35px;margin-top:-2px}
+.song-row-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #efdee6;border-radius:7px;padding:4px 7px;font-size:9px;font-weight:800;white-space:nowrap}
+.song-row-lyrics{background:#f5effa;color:#80648f}
+.song-row-youtube{background:#fff0f5;color:#a34f75}
+.song-detail-panel{position:sticky;top:14px;min-width:0;background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}
+.song-detail-placeholder{padding:32px 12px;text-align:center;color:#a58d9b;font-size:12px;line-height:1.8;background:#fff8fb;border:1px dashed #eed8e3;border-radius:13px}
+.song-detail-head{padding-bottom:13px;border-bottom:1px solid #f1e4e9}
+.song-detail-head h3{margin:0;color:#75475e;font-size:19px;overflow-wrap:anywhere}
+.song-detail-head p{margin:5px 0 0;color:#a18795;font-size:11px}
+.song-detail-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:13px 0}
+.song-detail-info .song-info-item{padding:8px 10px}
+.song-detail-actions{display:flex;gap:7px;margin:12px 0}
+.song-detail-actions a{flex:1;text-align:center;text-decoration:none;border-radius:10px;padding:10px 6px;font-size:11px;font-weight:800}
+.song-detail-clips-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:15px 0 8px;padding-top:13px;border-top:1px solid #f1e4e9}
+.song-detail-clips-title strong{font-size:12px;color:#80556d}
+.song-detail-clips-title span{font-size:10px;color:#b06b89}
+.song-detail-clip-list{display:grid;gap:7px;max-height:390px;overflow:auto}
+.song-detail-panel .related-clip{padding:9px;gap:9px}
+.song-detail-panel .related-play{width:32px;height:32px}
+.song-detail-panel .related-info strong{font-size:11px}
+.song-detail-panel .related-info span{font-size:9px}
+.song-detail-panel .related-empty{font-size:11px;padding:18px 9px}
+@media(max-width:700px){
+.song-workspace{grid-template-columns:1fr}
+.song-detail-panel{position:static}
+.song-detail-clip-list{max-height:none}
+.songrow{grid-template-columns:27px minmax(0,1fr) 48px;gap:6px;padding:8px 7px}
+.song-row-actions{grid-column:2/-1;padding-left:0;justify-content:flex-start;margin-top:0}
+.song-row-actions a{padding:5px 7px;font-size:9px}
+}
+@media(max-width:390px){
+.songrow{grid-template-columns:25px minmax(0,1fr) 43px;gap:4px;padding:7px 5px}
+.song-row-actions{grid-column:2/-1}
+}
 </style>
 </head>
 <body>
@@ -85,11 +127,14 @@ button,input,select{font:inherit}button{cursor:pointer}
 </div>
 <main>
 <section id="songsPage" class="page active">
- <div class="sectionhead"><div><h2>Song Book</h2><p>노래를 누르면 상세 정보와 LIVE 기록을 볼 수 있어요.</p></div><span class="count" id="songCount">122곡</span></div>
+ <div class="sectionhead"><div><h2>Song Book</h2><p>노래를 누르면 오른쪽에서 상세 정보와 LIVE 기록을 볼 수 있어요.</p></div><span class="count" id="songCount">122곡</span></div>
  <div class="search"><span>⌕</span><input id="q" placeholder="노래 제목, 가수, 초성으로 검색"><button id="reset">초기화</button></div>
  <div class="filters" id="groups"></div><div class="filters" id="eras"></div><div class="filters" id="liveFilters"></div>
- <div class="toolbar"><span class="count">노래 목록 · 눌러서 상세정보 보기</span><select id="sort"><option value="title">제목순</option><option value="artist">가수순</option><option value="live">LIVE 많은 순</option></select></div>
- <div class="songlist" id="songList"></div><div class="pagination" id="songPagination"></div>
+ <div class="toolbar"><span class="count">노래 목록 · 제목을 눌러 상세정보 보기</span><select id="sort"><option value="title">제목순</option><option value="artist">가수순</option><option value="live">LIVE 많은 순</option></select></div>
+ <div class="song-workspace">
+  <div><div class="songlist" id="songList"></div><div class="pagination" id="songPagination"></div></div>
+  <aside class="song-detail-panel" id="songDetailPanel" aria-live="polite"><div class="song-detail-placeholder">노래를 선택하면<br>상세정보와 저장된 LIVE 클립이 여기에 보여요 ♡</div></aside>
+ </div>
 </section>
 <section id="clipsPage" class="page">
  <div class="sectionhead"><div><h2>Clip Archive</h2><p>다시 보고 싶은 방송 속 노래 순간들</p></div><span class="count" id="clipCountLabel">CLIPS</span></div>
@@ -100,15 +145,6 @@ button,input,select{font:inherit}button{cursor:pointer}
 <footer class="foot">♡ PPARKXXO'S SONGBOOK · TOUGH OUTSIDE, SOFT INSIDE ♡</footer>
 </div>
 <div class="admin-code-modal" id="adminCodeModal" aria-hidden="true"><div class="admin-code-dialog" role="dialog" aria-modal="true" aria-labelledby="adminCodeTitle"><div class="admin-code-mark" aria-hidden="true">♫</div><h3 id="adminCodeTitle">관리자 바로가기</h3><p>관리자 페이지에 접속하려면<br>숫자 코드를 입력해주세요.</p><input class="admin-code-input" id="adminEntryCode" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="••••" aria-label="관리자 바로가기 숫자 코드"><div class="admin-code-error" id="adminCodeError" role="status" aria-live="polite"></div><div class="admin-code-actions"><button class="admin-code-cancel" id="adminCodeCancel" type="button">취소</button><button class="admin-code-submit" id="adminCodeSubmit" type="button">확인</button></div></div></div>
-<div class="songclips-modal" id="songClipsModal" aria-hidden="true">
- <div class="songclips-dialog" role="dialog" aria-modal="true" aria-labelledby="songClipsTitle">
-  <div class="songclips-head"><div class="songclips-heading"><h3 id="songClipsTitle">노래 제목</h3><p id="songClipsSubtitle">노래 정보</p></div><button class="songclips-close" id="closeSongClips" type="button" aria-label="팝업 닫기">×</button></div>
-  <div class="song-info-grid" id="songInfoGrid"></div>
-  <div class="song-modal-actions" id="songModalActions"></div>
-  <div class="related-heading"><strong>♡ LIVE 클립</strong><span id="relatedClipCount">0개</span></div>
-  <div class="related-list" id="relatedClipList"></div>
- </div>
-</div>
 <div class="video-modal" id="videoModal" aria-hidden="true"><div class="video-dialog" role="dialog" aria-modal="true" aria-labelledby="videoTitle"><div class="video-head"><div class="video-heading"><h3 id="videoTitle">클립 제목</h3><p id="videoArtist"></p></div><button class="video-close" id="closeVideo" type="button" aria-label="팝업 닫기">×</button></div><div class="video-frame" id="videoFrame"></div><div class="video-actions"><span class="video-help">영상이 재생되지 않으면 SOOP 원본 페이지에서 시청할 수 있어요.</span><a class="original-link" id="originalLink" href="#" target="_blank" rel="noopener noreferrer">SOOP 원본에서 보기 ↗</a></div></div></div>
 <script>
 let songs=[],clips=[],aliases=[];let group='전체',era='전체 시대';let liveFilter='all',clipFilter='all';let selectedCollaborator='';let currentPage=1;let visibleSongs=[],relatedClips=[];const PAGE_SIZE=20;
@@ -130,33 +166,28 @@ function renderLiveFilters(){const options=[['all','전체 노래'],['has','LIVE
 function renderClipFilters(){const options=[['all','전체'],['솔로','솔로'],['합방','합방']];$('#clipFilters').innerHTML=options.map(([value,label])=>`<button class="chip ${clipFilter===value?'active':''}" data-clip-filter="${value}">${label}</button>`).join('');}
 function parseParticipants(raw){return String(raw||'').split(/[,，、\n]+/).map(name=>name.trim()).filter(name=>name&&normalizeSongText(name)!==normalizeSongText('빡쏘'));}
 function renderCollaboratorFilters(){const box=$('#collaboratorFilters');if(clipFilter!=='합방'){box.innerHTML='';return;}const people=[...new Set(clips.filter(c=>String(c['클립분류']||'').trim()==='합방').flatMap(c=>parseParticipants(c['참여자'])))].sort((a,b)=>a.localeCompare(b,'ko'));if(!people.length){box.innerHTML='<span class="collaborator-title">♡ 함께 노래한 사람</span><span class="count">등록된 참여자가 없어요.</span>';return;}box.innerHTML=`<span class="collaborator-title">♡ 함께 노래한 사람</span><button class="collaborator-chip ${selectedCollaborator===''?'active':''}" data-collaborator="">전체 합방</button>${people.map(name=>`<button class="collaborator-chip ${selectedCollaborator===name?'active':''}" data-collaborator="${esc(name)}">${esc(name)}</button>`).join('')}`;}
+let selectedSong=null;
 function renderSongs(){
  const q=normalizeSongText($('#q').value);
  let list=songs.filter(s=>{const title=normalizeSongText(s['노래제목']),artist=normalizeSongText(s['가수']),artistTerms=artistSearchText(s['가수']),titleInitial=normalizeSongText(chosung(s['노래제목'])),artistInitial=normalizeSongText(chosung(s['가수']));const searchMatch=!q||[title,artist,artistTerms,titleInitial,artistInitial].some(x=>x.includes(q));const groupMatch=group==='전체'||String(s['곡분류']||'')===group;const eraMatch=era==='전체 시대'||String(s['시대']||'')===era;const liveCount=getSongClips(s).length;return searchMatch&&groupMatch&&eraMatch&&(liveFilter==='all'||liveCount>0);});
  list.sort((a,b)=>$('#sort').value==='artist'?String(a['가수']||'').localeCompare(String(b['가수']||''),'ko'):$('#sort').value==='live'?getSongClips(b).length-getSongClips(a).length:String(a['노래제목']||'').localeCompare(String(b['노래제목']||''),'ko'));
  $('#songCount').textContent=list.length+'곡';const totalPages=Math.ceil(list.length/PAGE_SIZE);if(!totalPages)currentPage=1;else currentPage=Math.min(Math.max(currentPage,1),totalPages);
  const pageSongs=list.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);visibleSongs=pageSongs;
- $('#songList').innerHTML=pageSongs.length?pageSongs.map((s,i)=>{const t=s['노래제목']||'',a=s['가수']||'',liveCount=getSongClips(s).length;return `<div class="songrow" role="button" tabindex="0" data-song-index="${i}" aria-label="${esc(t)} 상세 정보 보기"><div class="songicon">♫</div><div class="song-main"><div class="song-title-line"><span class="songtitle">${esc(t)}</span><span class="live-badge">♡ LIVE ${liveCount}회</span></div><div class="artist">${esc(a)} · ${esc(s['시대']||'')}</div></div><div class="genre">${esc(s['곡분류']||s['장르']||'')}</div><div class="key">${esc(s['키정보']||'키 미등록')}</div></div>`;}).join(''):'<div class="empty">검색 결과가 없어요. 다른 제목이나 가수로 검색해보세요.</div>';
+ $('#songList').innerHTML=pageSongs.length?pageSongs.map((s,i)=>{const t=s['노래제목']||'',a=s['가수']||'',liveCount=getSongClips(s).length;const yt='https://www.youtube.com/results?search_query='+encodeURIComponent(t+' '+a+' 노래방');const ly='https://www.google.com/search?q='+encodeURIComponent(t+' '+a+' 가사');return `<div class="songrow ${selectedSong===s?'selected':''}" role="button" tabindex="0" data-song-index="${i}" aria-label="${esc(t)} 상세 정보 보기"><div class="songicon">♫</div><div class="song-main"><div class="song-title-line"><span class="songtitle">${esc(t)}</span><span class="live-badge">♡ LIVE ${liveCount}회</span></div><div class="artist">${esc(a)} · ${esc(s['시대']||'')}</div></div><div class="genre">${esc(s['곡분류']||s['장르']||'')}</div><div class="key">${esc(s['키정보']||'키 미등록')}</div><div class="song-row-actions"><a class="song-row-lyrics" href="${ly}" target="_blank" rel="noopener noreferrer" data-row-action>♫ 가사</a><a class="song-row-youtube" href="${yt}" target="_blank" rel="noopener noreferrer" data-row-action>▶ 유튜브</a></div></div>`;}).join(''):'<div class="empty">검색 결과가 없어요. 다른 제목이나 가수로 검색해보세요.</div>';
  if(totalPages<=1){$('#songPagination').innerHTML='';return;}let buttons=`<button data-page-num="${currentPage-1}" ${currentPage===1?'disabled':''}>이전</button>`;for(let p=1;p<=totalPages;p++)buttons+=`<button data-page-num="${p}" class="${p===currentPage?'active':''}">${p}</button>`;buttons+=`<button data-page-num="${currentPage+1}" ${currentPage===totalPages?'disabled':''}>다음</button>`;$('#songPagination').innerHTML=buttons;
 }
 function openSongClips(song){
- relatedClips=getSongClips(song);
+ selectedSong=song;relatedClips=getSongClips(song);
  const title=song['노래제목']||'노래',artist=song['가수']||'가수 미등록';
- $('#songClipsTitle').textContent=title;
- $('#songClipsSubtitle').textContent=artist+' · 노래 상세 정보';
- const info=[['가수',artist],['장르',song['장르']||'미등록'],['분류',song['곡분류']||'미등록'],['시대',song['시대']||'미등록'],['키',song['키정보']||'키 미등록']];
- $('#songInfoGrid').innerHTML=info.map(([label,value])=>`<div class="song-info-item"><small>${esc(label)}</small><strong>${esc(value)}</strong></div>`).join('');
  const yt='https://www.youtube.com/results?search_query='+encodeURIComponent(title+' '+artist+' 노래방');
  const ly='https://www.google.com/search?q='+encodeURIComponent(title+' '+artist+' 가사');
- $('#songModalActions').innerHTML=`<a class="song-youtube" href="${yt}" target="_blank" rel="noopener noreferrer">▶ 유튜브 노래방</a><a class="song-lyrics" href="${ly}" target="_blank" rel="noopener noreferrer">♫ 가사 보기</a>`;
- $('#relatedClipCount').textContent=relatedClips.length+'개';
- $('#relatedClipList').innerHTML=relatedClips.length?relatedClips.map((clip,i)=>{const category=String(clip['클립분류']||'').trim(),people=parseParticipants(clip['참여자']);const participantText=category==='합방'&&people.length?`<span>같이한 사람 · ${people.map(esc).join(', ')}</span>`:'';return `<button class="related-clip" type="button" data-related-index="${i}"><span class="related-play">▶</span><span class="related-info"><strong>${esc(clip['클립제목']||'제목 미등록')}</strong><span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립 · ${esc(category||'분류 미등록')}</span>${participantText}</span><span class="related-arrow">›</span></button>`;}).join(''):'<div class="related-empty">아직 등록된 LIVE 클립이 없어요 ♡<br>클립 보관함에 이 노래의 클립을 추가하면 여기에 표시됩니다.</div>';
- $('#songClipsModal').classList.add('open');$('#songClipsModal').setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#closeSongClips').focus();
+ const info=[['가수',artist],['장르',song['장르']||'미등록'],['분류',song['곡분류']||'미등록'],['시대',song['시대']||'미등록'],['키',song['키정보']||'키 미등록']];
+ $('#songDetailPanel').innerHTML=`<div class="song-detail-head"><h3>${esc(title)}</h3><p>${esc(artist)} · 노래 상세 정보</p></div><div class="song-detail-info">${info.map(([label,value])=>`<div class="song-info-item"><small>${esc(label)}</small><strong>${esc(value)}</strong></div>`).join('')}</div><div class="song-detail-actions"><a class="song-youtube" href="${yt}" target="_blank" rel="noopener noreferrer">▶ 유튜브 노래방</a><a class="song-lyrics" href="${ly}" target="_blank" rel="noopener noreferrer">♫ 가사 보기</a></div><div class="song-detail-clips-title"><strong>♡ LIVE 클립</strong><span>${relatedClips.length}개</span></div><div class="song-detail-clip-list" id="relatedClipList">${relatedClips.length?relatedClips.map((clip,i)=>{const category=String(clip['클립분류']||'').trim(),people=parseParticipants(clip['참여자']);const participantText=category==='합방'&&people.length?`<span>같이한 사람 · ${people.map(esc).join(', ')}</span>`:'';return `<button class="related-clip" type="button" data-related-index="${i}"><span class="related-play">▶</span><span class="related-info"><strong>${esc(clip['클립제목']||'제목 미등록')}</strong><span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립 · ${esc(category||'분류 미등록')}</span>${participantText}</span><span class="related-arrow">›</span></button>`;}).join(''):'<div class="related-empty">아직 저장된 라이브 클립이 없어요 ♡</div>'}</div>`;
+ document.querySelectorAll('.songrow').forEach(row=>row.classList.toggle('selected',visibleSongs[Number(row.dataset.songIndex)]===song));
 }
-function closeSongClips(){$('#songClipsModal').classList.remove('open');$('#songClipsModal').setAttribute('aria-hidden','true');if(!$('#videoModal').classList.contains('open'))document.body.classList.remove('modal-open');}
 function getEmbedUrl(url){const m=String(url||'').trim().match(/^https?:\/\/(?:vod\.)?sooplive\.co(?:m|\.kr)\/player\/(\d+)/i);return m?`https://vod.sooplive.co.kr/player/${m[1]}/embed`:'';}
-function openClip(c){const originalUrl=String(c['SOOP주소']||'').trim();if(!originalUrl){alert('등록된 SOOP 원본 주소가 없습니다.');return;}closeSongClips();$('#videoTitle').textContent=c['클립제목']||'클립 영상';$('#videoArtist').textContent=c['가수']||'';$('#originalLink').href=originalUrl;const embedUrl=getEmbedUrl(originalUrl);$('#videoFrame').innerHTML=embedUrl?`<iframe src="${esc(embedUrl)}" title="${esc(c['클립제목']||'SOOP 클립')}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`:'<div class="empty" style="height:100%;display:grid;place-items:center;color:#fff">팝업 재생 주소를 확인할 수 없어요. SOOP 원본에서 시청해주세요.</div>';$('#videoModal').classList.add('open');$('#videoModal').setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#closeVideo').focus();}
-function closeClip(){$('#videoModal').classList.remove('open');$('#videoModal').setAttribute('aria-hidden','true');$('#videoFrame').innerHTML='';if(!$('#songClipsModal').classList.contains('open'))document.body.classList.remove('modal-open');}
+function openClip(c){const originalUrl=String(c['SOOP주소']||'').trim();if(!originalUrl){alert('등록된 SOOP 원본 주소가 없습니다.');return;}$('#videoTitle').textContent=c['클립제목']||'클립 영상';$('#videoArtist').textContent=c['가수']||'';$('#originalLink').href=originalUrl;const embedUrl=getEmbedUrl(originalUrl);$('#videoFrame').innerHTML=embedUrl?`<iframe src="${esc(embedUrl)}" title="${esc(c['클립제목']||'SOOP 클립')}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`:'<div class="empty" style="height:100%;display:grid;place-items:center;color:#fff">팝업 재생 주소를 확인할 수 없어요. SOOP 원본에서 시청해주세요.</div>';$('#videoModal').classList.add('open');$('#videoModal').setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#closeVideo').focus();}
+function closeClip(){$('#videoModal').classList.remove('open');$('#videoModal').setAttribute('aria-hidden','true');$('#videoFrame').innerHTML='';document.body.classList.remove('modal-open');}
 function renderClips(){const q=normalizeSongText($('#clipQ').value);const list=clips.filter(c=>{const category=String(c['클립분류']||'').trim(),categoryMatch=clipFilter==='all'||category===clipFilter,searchText=normalizeSongText((c['클립제목']||'')+' '+(c['가수']||'')+' '+(c['참여자']||'')),people=parseParticipants(c['참여자']),personMatch=!selectedCollaborator||people.some(name=>normalizeSongText(name)===normalizeSongText(selectedCollaborator));return categoryMatch&&personMatch&&(!q||searchText.includes(q));});$('#clipCountLabel').textContent=list.length+' CLIPS';window.visibleClips=list;$('#clipGrid').innerHTML=list.map((c,i)=>{const category=String(c['클립분류']||'').trim(),people=parseParticipants(c['참여자']),participantText=people.length?`<p class="clip-participants">함께한 사람 · ${people.map(esc).join(', ')}</p>`:'';return `<article class="clip"><button class="clip-open" type="button" data-clip-index="${i}" aria-label="${esc(c['클립제목']||'클립')} 재생"><div class="thumb"><span class="thumb-icon">▶</span></div></button><div class="clipbody"><h3>${esc(c['클립제목']||'제목 미등록')}</h3><p>${esc(c['가수']||'가수 미등록')}${category?` · ${esc(category)}`:''}</p>${participantText}</div></article>`;}).join('')||'<div class="empty">검색된 클립이 없어요.</div>';}
 $('#q').oninput=()=>{currentPage=1;renderSongs();};$('#sort').onchange=()=>{currentPage=1;renderSongs();};
 $('#reset').onclick=()=>{$('#q').value='';group='전체';era='전체 시대';liveFilter='all';currentPage=1;renderGroups();renderEras();renderLiveFilters();renderSongs();};
@@ -165,14 +196,14 @@ $('#eras').onclick=e=>{const b=e.target.closest('[data-era]');if(b){era=b.datase
 $('#liveFilters').onclick=e=>{const b=e.target.closest('[data-live]');if(b){liveFilter=b.dataset.live;currentPage=1;renderLiveFilters();renderSongs();}};
 $('#clipFilters').onclick=e=>{const b=e.target.closest('[data-clip-filter]');if(b){clipFilter=b.dataset.clipFilter;selectedCollaborator='';renderClipFilters();renderCollaboratorFilters();renderClips();}};
 $('#collaboratorFilters').onclick=e=>{const b=e.target.closest('[data-collaborator]');if(!b)return;const name=b.dataset.collaborator;selectedCollaborator=selectedCollaborator===name?'':name;renderCollaboratorFilters();renderClips();};
-function activateSongRow(e){const row=e.target.closest('[data-song-index]');if(!row)return;const song=visibleSongs[Number(row.dataset.songIndex)];if(song)openSongClips(song);}
-$('#songList').onclick=activateSongRow;$('#songList').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-song-index]')){e.preventDefault();activateSongRow(e);}};
+function activateSongRow(e){if(e.target.closest('[data-row-action]'))return;const row=e.target.closest('[data-song-index]');if(!row)return;const song=visibleSongs[Number(row.dataset.songIndex)];if(song)openSongClips(song);}
+$('#songList').onclick=activateSongRow;
+$('#songList').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-song-index]')&&!e.target.closest('[data-row-action]')){e.preventDefault();activateSongRow(e);}};
 $('#songPagination').onclick=e=>{const b=e.target.closest('[data-page-num]');if(!b||b.disabled)return;currentPage=Number(b.dataset.pageNum);renderSongs();$('#songList').scrollIntoView({behavior:'smooth',block:'start'});};
-$('#relatedClipList').onclick=e=>{const b=e.target.closest('[data-related-index]');if(!b)return;const clip=relatedClips[Number(b.dataset.relatedIndex)];if(clip)openClip(clip);};
-$('#closeSongClips').onclick=closeSongClips;$('#songClipsModal').addEventListener('click',e=>{if(e.target===$('#songClipsModal'))closeSongClips();});
+document.addEventListener('click',e=>{const b=e.target.closest('#relatedClipList [data-related-index]');if(!b)return;const clip=relatedClips[Number(b.dataset.relatedIndex)];if(clip)openClip(clip);});
 $('#clipQ').oninput=renderClips;$('#clipGrid').onclick=e=>{const b=e.target.closest('[data-clip-index]');if(!b)return;const c=window.visibleClips?.[Number(b.dataset.clipIndex)];if(c)openClip(c);};
 $('#closeVideo').onclick=closeClip;$('#videoModal').addEventListener('click',e=>{if(e.target===$('#videoModal'))closeClip();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#videoModal').classList.contains('open'))closeClip();else if($('#songClipsModal').classList.contains('open'))closeSongClips();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#videoModal').classList.contains('open'))closeClip();});
 const API_URL='https://script.google.com/macros/s/AKfycbwr7lNcZpTrwyOjHlEUcNbDtudqUTak7qJJEFIIC8jwnBP77oRpcgHiEzQbJEsBgjX_/exec';
 const adminCodeModal=$('#adminCodeModal'),adminCodeInput=$('#adminEntryCode'),adminCodeError=$('#adminCodeError'),adminCodeSubmit=$('#adminCodeSubmit');
 function openAdminCodeModal(){adminCodeInput.value='';adminCodeError.textContent='';adminCodeSubmit.disabled=false;adminCodeModal.classList.add('open');adminCodeModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');setTimeout(()=>adminCodeInput.focus(),40);}
@@ -189,7 +220,7 @@ function readSongbookCache(){try{const raw=localStorage.getItem(SONGBOOK_CACHE_K
 function saveSongbookCache(data){try{localStorage.setItem(SONGBOOK_CACHE_KEY,JSON.stringify(data));}catch(error){}}
 function loadSheetData(){return new Promise((resolve,reject)=>{const cb='songbookCallback',timer=setTimeout(()=>{cleanup();reject(new Error('API timeout'));},15000),script=document.createElement('script'),cleanup=()=>{clearTimeout(timer);delete window[cb];script.onerror=null;script.remove();};window[cb]=data=>{cleanup();if(isValidSheetData(data))resolve(data);else reject(new Error('Invalid API response'));};script.onerror=()=>{cleanup();reject(new Error('API load failed'));};script.src=API_URL+'?callback='+cb;document.head.appendChild(script);});}
 const cachedSongbook=readSongbookCache();if(cachedSongbook)renderAllData(cachedSongbook);else{renderGroups();renderEras();renderLiveFilters();renderClipFilters();renderCollaboratorFilters();}
-loadSheetData().then(data=>{saveSongbookCache(data);renderAllData(data);}).catch(()=>{if(!cachedSongbook){$('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';$('#clipGrid').innerHTML='<div class="empty">클립 목록을 불러오지 못했어요. 잠시 후 새로고침해주세요.</div>';}});
+loadSheetData().then(data=>{saveSongbookCache(data);renderAllData(data);}).catch(()=>{if(!cachedSongbook){$('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';$('#clipGrid').innerHTML='<div class="empty">클립 목록을 불러오지 못했어요. 잠시 후 새로고침해주세요.</div>'; }});
 </script>
 </body>
 </html>
