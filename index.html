@@ -34,78 +34,174 @@ button,input,select{font:inherit}button{cursor:pointer}
 .search input{flex:1;min-width:0;border:0;outline:0;padding:10px 0;color:var(--ink);background:transparent;font-size:16px}.search input::placeholder{color:#a88d9d}.search button{border:0;border-radius:10px;background:#b96b8f;color:white;padding:11px 16px;font-size:14px;font-weight:800}
 .filters{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.chip{border:1px solid #eee0e8;background:#fff;color:#86697c;border-radius:99px;padding:9px 15px;font-size:14px}.chip.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}
 .collaborator-filters{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px;padding:12px;background:#fff9fb;border:1px solid #f1e4e9;border-radius:14px}.collaborator-filters:empty{display:none}.collaborator-title{width:100%;font-size:13px;color:#946f84;font-weight:800;margin-bottom:3px}.collaborator-chip{border:1px solid #eee0e8;background:#fff;color:#86697c;border-radius:99px;padding:9px 15px;font-size:14px}.collaborator-chip.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}.toolbar select{border:1px solid var(--line);background:white;color:#856b7b;border-radius:10px;padding:9px 12px;font-size:14px}
-
-/* 노래 목록 + 오른쪽 상세 패널 */
-.songs-layout{display:block}
-.songs-main{min-width:0}
-.songlist{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}.toolbar select{border:1px solid var(--line);background:white;color:#856b7b;border-radius:10px;padding:9px 12px;font-size:14px}.toolbar-right{display:flex;align-items:center;gap:10px;flex:none}
+.songs-layout{display:block}.songs-main{min-width:0}.songlist{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
 .songrow{display:grid;grid-template-columns:40px minmax(0,1fr) 110px 76px 22px;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #f5edf1;cursor:pointer;transition:background .15s}
-.songrow:last-child{border:0}.songrow:hover{background:#fff8fb}
-.songrow.selected{background:#fdeef4;box-shadow:inset 4px 0 0 #c47b9b}
-.songrow:focus-visible{outline:2px solid #dba5bd;outline-offset:-2px}
+.songrow:last-child{border:0}.songrow:hover{background:#fff8fb}.songrow.selected{background:#fdeef4;box-shadow:inset 4px 0 0 #c47b9b}.songrow:focus-visible{outline:2px solid #dba5bd;outline-offset:-2px}
 .songicon{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#fae7ef,#eee8f7);display:grid;place-items:center;color:#b56b8d;font-size:18px}
-.song-main{display:block;width:100%;min-width:0;border:0;padding:0;background:transparent;text-align:left;color:inherit}
-.song-title-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.songtitle{font-weight:750;font-size:17px;line-height:1.35}.artist{font-size:14px;color:#8f7787;margin-top:3px}
+.song-main{display:block;width:100%;min-width:0;border:0;padding:0;background:transparent;text-align:left;color:inherit}.song-title-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.songtitle{font-weight:750;font-size:17px;line-height:1.35}.artist{font-size:14px;color:#8f7787;margin-top:3px}
 .live-badge{display:inline-flex;align-items:center;gap:3px;border:1px solid #f0d5e1;background:#fff4f8;color:#b45f83;border-radius:99px;padding:3px 9px;font-size:12px;font-weight:800;white-space:nowrap}
-.genre{font-size:14px;color:#87667c;text-align:center}.key{display:inline-flex;justify-content:center;min-width:48px;white-space:nowrap;font-size:14px;font-weight:800;color:#a45f80;background:#fff2f7;border:1px solid #f1dce6;border-radius:9px;padding:6px 9px}
-.row-arrow{color:#c58aa5;font-size:26px;line-height:1;text-align:center}
-.songrow.selected .row-arrow{color:#a04f76}
-.actions{display:none}
+.genre{font-size:14px;color:#87667c;text-align:center}.key{display:inline-flex;justify-content:center;min-width:48px;white-space:nowrap;font-size:14px;font-weight:800;color:#a45f80;background:#fff2f7;border:1px solid #f1dce6;border-radius:9px;padding:6px 9px}.row-arrow{color:#c58aa5;font-size:26px;line-height:1;text-align:center}.songrow.selected .row-arrow{color:#a04f76}.actions{display:none}
 .empty{padding:40px;text-align:center;color:#8f7787;font-size:16px}
-.clipgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.clip{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}
-.clip-open{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;color:inherit}.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#f6dce7,#e9e1f5);display:grid;place-items:center;color:#ad6e8c;font-size:36px;position:relative;overflow:hidden}
-.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,#fff9,transparent 38%),linear-gradient(135deg,#f6dce7,#e9e1f5)}.thumb-icon{position:relative;z-index:1;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:#ffffffc9;color:#ae6687;font-size:26px;box-shadow:0 8px 24px #9b668522}.thumb:after{content:"SOOP CLIP · 눌러서 영상 보기";position:absolute;left:12px;bottom:10px;font-size:11px;letter-spacing:.06em;color:#7f5570;font-weight:800;z-index:1}
+.clipgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.clip{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}.clip-open{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;color:inherit}
+.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#f6dce7,#e9e1f5);display:grid;place-items:center;color:#ad6e8c;font-size:36px;position:relative;overflow:hidden}.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,#fff9,transparent 38%),linear-gradient(135deg,#f6dce7,#e9e1f5)}.thumb-icon{position:relative;z-index:1;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:#ffffffc9;color:#ae6687;font-size:26px;box-shadow:0 8px 24px #9b668522}.thumb:after{content:"SOOP CLIP · 눌러서 영상 보기";position:absolute;left:12px;bottom:10px;font-size:11px;letter-spacing:.06em;color:#7f5570;font-weight:800;z-index:1}
 .clipbody{padding:15px}.clipbody h3{font-size:16px;margin:0 0 6px;line-height:1.4}.clipbody p{font-size:14px;color:var(--muted);margin:0}.clipbody .clip-participants{margin-top:6px;color:#a1607a;font-size:13px;line-height:1.5}
 .foot{text-align:center;color:#a38a99;font-size:12px;margin:30px 0 8px;letter-spacing:.08em}.notice{background:#fff;border:1px dashed #e9cbd9;border-radius:14px;padding:13px;color:#86677a;font-size:13px;line-height:1.7;margin-top:12px}
 .pagination{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin:18px 0}.pagination button{border:1px solid #efdee6;background:#fff;color:#86697c;border-radius:10px;padding:9px 14px;font-size:14px}.pagination button.active{background:#f3dce7;border-color:#e9bfd1;color:#9c4f75;font-weight:800}.pagination button:disabled{opacity:.4;cursor:default}
-
-/* 상세 패널 (PC: 목록 오른쪽 / 모바일: 전체 팝업) */
-.songclips-modal{display:none}
-.songclips-dialog{width:100%;background:#fffafd;border:1px solid #f0dce5;border-radius:23px;box-shadow:0 14px 50px #98647b22;padding:22px}
+.songclips-modal{display:none}.songclips-dialog{width:100%;background:#fffafd;border:1px solid #f0dce5;border-radius:23px;box-shadow:0 14px 50px #98647b22;padding:22px}
 .songclips-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}.songclips-heading{min-width:0}.songclips-heading h3{font-size:24px;line-height:1.3;color:#75475e;margin:0;overflow-wrap:anywhere}.songclips-heading p{font-size:14px;color:#8f7787;margin:6px 0 0}.songclips-close{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:#f7e8ee;color:#9c5877;font-size:26px;line-height:1}
-.song-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:15px 0}.song-info-item{background:#fff;border:1px solid #f1e4e9;border-radius:12px;padding:11px 13px;min-width:0}.song-info-item small{display:block;color:#9d7a8e;font-size:12px;margin-bottom:4px}.song-info-item strong{display:block;color:#6b4559;font-size:15px;overflow-wrap:anywhere}.song-modal-actions{display:flex;gap:8px;margin:12px 0 18px}.song-modal-actions a{flex:1;text-align:center;text-decoration:none;border-radius:11px;padding:13px 8px;font-size:14px;font-weight:800}.song-youtube{background:#f8e5ed;color:#a34f75}.song-lyrics{background:#eee8f7;color:#734f87}
+.song-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:15px 0}.song-info-item{background:#fff;border:1px solid #f1e4e9;border-radius:12px;padding:11px 13px;min-width:0}.song-info-item small{display:block;color:#9d7a8e;font-size:12px;margin-bottom:4px}.song-info-item strong{display:block;color:#6b4559;font-size:15px;overflow-wrap:anywhere}
+.song-modal-actions{display:flex;gap:8px;margin:12px 0 18px}.song-modal-actions a{flex:1;text-align:center;text-decoration:none;border-radius:11px;padding:13px 8px;font-size:14px;font-weight:800}.song-youtube{background:#f8e5ed;color:#a34f75}.song-lyrics{background:#eee8f7;color:#734f87}
 .related-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 9px;padding-top:14px;border-top:1px solid #f1e4e9}.related-heading strong{font-size:16px;color:#80556d}.related-heading span{font-size:13px;color:#a05f7d;background:#fff2f7;border-radius:99px;padding:5px 10px}
 .related-list{display:grid;gap:8px}.related-clip{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border:1px solid #f1e4e9;border-radius:13px;background:#fff;text-align:left;color:var(--ink);transition:background .2s,border-color .2s,transform .2s}.related-clip:hover{background:#fff5f8;border-color:#e9c5d5;transform:translateY(-1px)}
 .related-play{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#fae7ef,#eee8f7);display:grid;place-items:center;color:#b56b8d;font-size:17px}.related-info{min-width:0;flex:1}.related-info strong{display:block;font-size:15px;overflow-wrap:anywhere}.related-info span{display:block;margin-top:4px;font-size:13px;color:#8f7787}.related-arrow{color:#bd819c;font-size:22px}.related-empty{padding:24px 12px;text-align:center;color:#8f7787;font-size:14px;line-height:1.7;background:#fff7fa;border:1px dashed #eed8e3;border-radius:13px}
-
-@media(min-width:901px){
- .songs-layout{display:grid;grid-template-columns:minmax(0,1fr) 0px;column-gap:0;align-items:start;transition:grid-template-columns .4s cubic-bezier(.2,.8,.2,1),column-gap .4s cubic-bezier(.2,.8,.2,1)}
- .songs-layout.has-detail{grid-template-columns:minmax(0,1fr) 410px;column-gap:20px}
- .songclips-modal{display:block;position:sticky;top:14px;align-self:start;min-width:0;overflow:hidden;visibility:hidden;opacity:0;transform:translateX(30px);transition:opacity .3s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
- .songclips-modal.open{visibility:visible;opacity:1;transform:none;transition:opacity .3s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
- .songclips-dialog{width:410px;max-height:calc(100vh - 28px);overflow:auto;box-shadow:none}
-}
-@media(min-width:901px) and (max-width:1120px){
- .songs-layout.has-detail .genre{display:none}
- .songs-layout.has-detail .songrow{grid-template-columns:40px minmax(0,1fr) 76px 22px}
-}
-@media(max-width:900px){
- .songclips-modal{position:fixed;inset:0;z-index:9998;align-items:center;justify-content:center;padding:14px;background:rgba(42,25,36,.62);backdrop-filter:blur(6px)}
- .songclips-modal.open{display:flex}
- .songclips-dialog{max-width:620px;max-height:90vh;overflow:auto;box-shadow:0 28px 100px #0004}
-}
-
+@media(min-width:901px){.songs-layout{display:grid;grid-template-columns:minmax(0,1fr) 0px;column-gap:0;align-items:start;transition:grid-template-columns .4s cubic-bezier(.2,.8,.2,1),column-gap .4s cubic-bezier(.2,.8,.2,1)}.songs-layout.has-detail{grid-template-columns:minmax(0,1fr) 410px;column-gap:20px}.songclips-modal{display:block;position:sticky;top:14px;align-self:start;min-width:0;overflow:hidden;visibility:hidden;opacity:0;transform:translateX(30px);transition:opacity .3s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}.songclips-modal.open{visibility:visible;opacity:1;transform:none;transition:opacity .3s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s}.songclips-dialog{width:410px;max-height:calc(100vh - 28px);overflow:auto;box-shadow:none}}
+@media(min-width:901px) and (max-width:1120px){.songs-layout.has-detail .genre{display:none}.songs-layout.has-detail .songrow{grid-template-columns:40px minmax(0,1fr) 76px 22px}}
+@media(max-width:900px){.songclips-modal{position:fixed;inset:0;z-index:9998;align-items:center;justify-content:center;padding:14px;background:rgba(42,25,36,.62);backdrop-filter:blur(6px)}.songclips-modal.open{display:flex}.songclips-dialog{max-width:620px;max-height:90vh;overflow:auto;box-shadow:0 28px 100px #0004}}
 .video-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(42,25,36,.8);backdrop-filter:blur(7px)}.video-modal.open{display:flex}.video-dialog{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#fffafd;border:1px solid #f0dce5;border-radius:22px;box-shadow:0 28px 100px #0006;padding:18px}.video-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.video-heading{min-width:0}.video-heading h3{font-size:19px;color:#75475e;margin:0;overflow-wrap:anywhere}.video-heading p{font-size:14px;color:#8f7787;margin:5px 0 0}.video-close{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:#f7e8ee;color:#9c5877;font-size:26px;line-height:1}.video-frame{width:100%;aspect-ratio:16/9;background:#17131a;border-radius:14px;overflow:hidden}.video-frame iframe{display:block;width:100%;height:100%;border:0}.video-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}.video-help{font-size:13px;color:#8f7787;line-height:1.5}.original-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#b96b8f;color:#fff;border-radius:11px;padding:12px 18px;font-size:14px;font-weight:800}
-@media(max-width:700px){
-.shell{padding:13px 12px 30px}.top{align-items:flex-start}.brand{font-size:16px}.brand small{font-size:9px}.mark{width:40px;height:40px;font-size:21px}.topnav{gap:5px}.nav{padding:10px 11px;font-size:13px}
-.hero{padding:16px 16px;min-height:0}.hero-tags{display:none}.mascot{width:72px;height:72px;border-radius:16px;border-width:3px}.hero h1{font-size:26px}.hero p{font-size:14px}.stats{margin:11px 0 18px}.stat{min-width:0;flex:1;padding:10px 12px}.stat b{font-size:21px}
-.songrow{grid-template-columns:34px minmax(0,1fr) 62px 16px;gap:8px;padding:12px 10px}.songicon{width:34px;height:34px}.songtitle{font-size:16px}.artist{font-size:13px}.genre{display:none}.key{font-size:13px;padding:5px 7px;min-width:44px}.row-arrow{font-size:22px}.clipgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.clipbody{padding:11px}.clipbody h3{font-size:14px}.clipbody p{font-size:13px}.sectionhead h2{font-size:24px}.video-modal{padding:12px}.video-dialog{padding:12px;border-radius:17px}.video-heading h3{font-size:16px}.video-frame{border-radius:10px}.video-actions{align-items:stretch}.original-link{width:100%}.songclips-dialog{padding:16px;border-radius:18px}.songclips-heading h3{font-size:21px}
-}
+@media(max-width:700px){.shell{padding:13px 12px 30px}.top{align-items:flex-start}.brand{font-size:16px}.brand small{font-size:9px}.mark{width:40px;height:40px;font-size:21px}.topnav{gap:5px}.nav{padding:10px 11px;font-size:13px}.hero{padding:16px 16px;min-height:0}.hero-tags{display:none}.mascot{width:72px;height:72px;border-radius:16px;border-width:3px}.hero h1{font-size:26px}.hero p{font-size:14px}.stats{margin:11px 0 18px}.stat{min-width:0;flex:1;padding:10px 12px}.stat b{font-size:21px}.songrow{grid-template-columns:34px minmax(0,1fr) 62px 16px;gap:8px;padding:12px 10px}.songicon{width:34px;height:34px}.songtitle{font-size:16px}.artist{font-size:13px}.genre{display:none}.key{font-size:13px;padding:5px 7px;min-width:44px}.row-arrow{font-size:22px}.clipgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.clipbody{padding:11px}.clipbody h3{font-size:14px}.clipbody p{font-size:13px}.sectionhead h2{font-size:24px}.video-modal{padding:12px}.video-dialog{padding:12px;border-radius:17px}.video-heading h3{font-size:16px}.video-frame{border-radius:10px}.video-actions{align-items:stretch}.original-link{width:100%}.songclips-dialog{padding:16px;border-radius:18px}.songclips-heading h3{font-size:21px}}
 @media(max-width:390px){.mascot{width:64px;height:64px;border-radius:14px}.hero{padding:14px 12px}.hero h1{font-size:23px}.songrow{grid-template-columns:30px minmax(0,1fr) 54px 14px;gap:6px;padding:11px 6px}.songicon{width:30px;height:30px}.songtitle{font-size:15px}.live-badge{font-size:11px;padding:2px 7px}}
 @media(hover:none){.stat:hover{transform:none;box-shadow:var(--shadow);border-color:var(--line)}.stat:active{transform:scale(.985)}}
 @media(prefers-reduced-motion:reduce){.stat,.related-clip,.songs-layout,.songclips-modal{transition:none!important}.songclips-dialog,.songclips-dialog.swap{animation:none!important}}
-.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.thumb.has-img:before{z-index:1;background:linear-gradient(180deg,transparent 50%,#2a192499)}
-.thumb.has-img:after{color:#fff;text-shadow:0 1px 6px #0008}
-.songclips-dialog.swap{animation:swapIn .28s ease}
-@keyframes swapIn{from{opacity:.25;transform:translateX(14px)}to{opacity:1;transform:none}}
-@keyframes sheetIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}.thumb.has-img:before{z-index:1;background:linear-gradient(180deg,transparent 50%,#2a192499)}.thumb.has-img:after{color:#fff;text-shadow:0 1px 6px #0008}.songclips-dialog.swap{animation:swapIn .28s ease}
+@keyframes swapIn{from{opacity:.25;transform:translateX(14px)}to{opacity:1;transform:none}}@keyframes sheetIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
 @media(max-width:900px){.songclips-modal.open .songclips-dialog{animation:sheetIn .3s cubic-bezier(.2,.8,.2,1)}}
 .admin-code-modal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(42,25,36,.58);backdrop-filter:blur(6px)}.admin-code-modal.open{display:flex}.admin-code-dialog{width:min(390px,100%);padding:25px;background:linear-gradient(155deg,#fffafd,#fff4f8);border:1px solid #efd9e3;border-radius:24px;box-shadow:0 28px 90px #75475e33;text-align:center}.admin-code-mark{width:48px;height:48px;margin:0 auto 13px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(140deg,#f1c5d8,#e4d8f2);color:#995876;font-size:22px;box-shadow:0 7px 20px #d59bb733}.admin-code-dialog h3{margin:0;color:#75475e;font-family:Georgia,"Noto Serif KR",serif;font-size:24px}.admin-code-dialog p{margin:8px 0 18px;color:#8f7787;font-size:14px;line-height:1.6}.admin-code-input{display:block;width:100%;height:52px;border:1px solid #efdee6;border-radius:14px;background:#fff;padding:0 15px;text-align:center;letter-spacing:.38em;font-size:22px;font-weight:800;color:#96566f;outline:none;box-shadow:0 7px 20px #98647b0d}.admin-code-input:focus{border-color:#dba5bd;box-shadow:0 0 0 3px #f6e3eb}.admin-code-error{min-height:22px;margin:8px 0 4px;color:#c45d79;font-size:13px}.admin-code-actions{display:flex;gap:8px;margin-top:10px}.admin-code-actions button{flex:1;border:1px solid #efdee6;border-radius:12px;padding:12px 14px;font-size:14px;font-weight:800}.admin-code-cancel{background:#fff;color:#86697c}.admin-code-submit{border-color:#b96b8f!important;background:linear-gradient(135deg,#c47b9b,#ad6487);color:#fff;box-shadow:0 7px 17px #bd718c33}.admin-code-submit:disabled{opacity:.55;cursor:wait}@media(max-width:420px){.admin-code-dialog{padding:22px 18px;border-radius:20px}}
+
+/* 첫 방문 동화책 오프닝 */
+.book-intro{position:fixed;inset:0;z-index:20000;display:flex;align-items:stretch;justify-content:stretch;padding:0;background:linear-gradient(145deg,#e9dce8,#f6e9e7 52%,#e5e0ef);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease;overflow:hidden}
+.book-intro:before,.book-intro:after{display:none}
+.book-intro.finished{opacity:0;visibility:hidden;pointer-events:none}
+.book-scene{position:absolute;inset:0;width:100%;height:100%;perspective:2400px;filter:none}
+.storybook{position:absolute;inset:0;width:100%;height:100%;transform-style:preserve-3d}
+.book-pages{position:absolute;inset:0;border-radius:0;background:radial-gradient(ellipse at 50% 45%,#fffefa 0%,#fff8f5 58%,#eee5f1 100%);box-shadow:inset 0 0 70px #b58ba51c}
+.book-pages:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#b98ca31c 0%,transparent 8%,transparent 92%,#b98ca31c 100%);pointer-events:none}
+.book-cover{position:absolute;inset:0;border-radius:0;border:0;background-color:#efc6d7;transform-origin:left center;transform:rotateY(0);backface-visibility:hidden;box-shadow:inset 0 0 0 8px #ffffff65,12px 0 34px #80536d30;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#87546d;text-align:center;padding:30px 22px;cursor:pointer;touch-action:manipulation;transition:filter .2s ease}
+.book-cover:before{content:"";position:absolute;inset:0;border:0;background:linear-gradient(180deg,#fff2 0%,transparent 22%,transparent 76%,#f6e8ed35 100%),radial-gradient(ellipse at center,transparent 48%,#55405b18 100%);pointer-events:none}
+
+/* 빈티지 동화책 표지 테두리 */
+.book-cover{
+  overflow:hidden;
+  box-shadow:inset 0 0 0 10px rgba(255,246,248,.94),inset 0 0 0 13px rgba(184,132,151,.82),inset 0 0 0 16px rgba(255,239,220,.94),inset 0 0 0 18px rgba(177,128,145,.52),inset 20px 0 28px rgba(105,66,88,.22),0 18px 55px rgba(91,58,79,.22);
+}
+.book-cover:after{
+  content:"";position:absolute;z-index:2;inset:clamp(15px,2.2vw,31px);
+  border:1px solid rgba(255,245,224,.96);outline:1px solid rgba(157,105,129,.76);outline-offset:5px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 0 0 1px rgba(255,255,255,.52),0 0 18px rgba(106,68,89,.12);
+  border-radius:clamp(8px,1.4vw,18px);pointer-events:none;
+}
+.book-corner{
+  position:absolute;z-index:3;width:clamp(34px,6vw,76px);height:clamp(34px,6vw,76px);
+  display:grid;place-items:center;color:rgba(161,105,130,.95);font-family:Georgia,serif;
+  font-size:clamp(27px,4.5vw,54px);line-height:1;text-shadow:0 1px 0 #fff8,0 2px 5px rgba(93,54,76,.18);
+  pointer-events:none;filter:drop-shadow(0 1px 1px rgba(255,255,255,.8));
+}
+.corner-tl{top:clamp(17px,2.5vw,36px);left:clamp(17px,2.5vw,36px);transform:rotate(-45deg)}
+.corner-tr{top:clamp(17px,2.5vw,36px);right:clamp(17px,2.5vw,36px);transform:rotate(45deg) scaleX(-1)}
+.corner-bl{bottom:clamp(17px,2.5vw,36px);left:clamp(17px,2.5vw,36px);transform:rotate(-135deg)}
+.corner-br{bottom:clamp(17px,2.5vw,36px);right:clamp(17px,2.5vw,36px);transform:rotate(135deg) scaleX(-1)}
+/* 접속할 때마다 자동 선택되는 여섯 가지 프레임 */
+.book-intro.frame-2 .book-cover{box-shadow:inset 0 0 0 9px #fff8f4e8,inset 0 0 0 12px #b98d9c,inset 0 0 0 15px #f9e9d8,inset 0 0 0 18px #b98d9c66,inset 20px 0 28px #69465a33,0 18px 55px #5b3a4f38}
+.book-intro.frame-3 .book-cover:after{inset:clamp(20px,3vw,42px);border:2px double rgba(174,128,143,.9);outline:1px solid rgba(255,247,229,.95);outline-offset:4px;border-radius:3px}
+.book-intro.frame-4 .book-cover{box-shadow:inset 0 0 0 11px #fff8f4ed,inset 0 0 0 14px #c79b83,inset 0 0 0 17px #fff0d9,inset 0 0 0 20px #b8879a77,inset 24px 0 32px #69465a2e,0 18px 55px #5b3a4f38}
+.book-intro.frame-5 .book-cover:after{inset:clamp(13px,1.8vw,25px);border:3px double rgba(198,151,166,.9);outline:1px solid rgba(255,247,229,.95);outline-offset:3px;border-radius:14px}
+.book-intro.frame-6 .book-cover{box-shadow:inset 0 0 0 8px #fff8f4ef,inset 0 0 0 11px #a98aa9,inset 0 0 0 15px #fff0df,inset 0 0 0 18px #c58eaa88,inset 24px 0 32px #69465a2e,0 18px 55px #5b3a4f38}
+.book-intro.frame-6 .book-corner{color:#967da8}
+@media(max-width:600px){
+  .book-cover{box-shadow:inset 0 0 0 7px rgba(255,246,248,.94),inset 0 0 0 10px rgba(184,132,151,.82),inset 0 0 0 13px rgba(255,239,220,.94),inset 0 0 0 15px rgba(177,128,145,.52),inset 13px 0 20px rgba(105,66,88,.18)}
+  .book-cover:after{inset:14px;outline-offset:3px;border-radius:8px}
+  .book-corner{font-size:30px;width:36px;height:36px}
+  .corner-tl{top:17px;left:17px}.corner-tr{top:17px;right:17px}
+  .corner-bl{bottom:17px;left:17px}.corner-br{bottom:17px;right:17px}
+}
+.book-intro.opening .book-cover{animation:bookOpen 1.75s cubic-bezier(.62,.02,.3,1) forwards}
+.book-intro.opening .intro-caption{opacity:0;transition:opacity .2s ease}
+.cover-decoration{display:none;font-size:20px;letter-spacing:.22em;color:#b77c98;margin-bottom:15px}.cover-mark{display:none;width:54px;height:54px;border-radius:19px;display:grid;place-items:center;background:#ffffffb8;border:1px solid #fff;color:#a45e80;font-size:30px;box-shadow:0 7px 20px #a36c8520;margin-bottom:13px}
+.cover-title{display:none;font-family:Georgia,"Noto Serif KR",serif;font-size:clamp(25px,7vw,36px);font-weight:800;letter-spacing:-.06em;line-height:1.28;text-shadow:0 2px #fff8}.cover-subtitle{display:none;font-size:9px;letter-spacing:.2em;color:#a57991;margin-top:10px}.cover-line{display:none;width:64px;height:1px;background:#c99bb0;margin:17px 0 12px}.cover-bottom{display:none;font-size:9px;letter-spacing:.18em;color:#a57991}.cover-flower{display:none;position:absolute;right:19px;bottom:15px;color:#bd8ba4;font-size:22px}
+.intro-caption{position:absolute;z-index:2;left:50%;right:auto;bottom:max(5%,env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);padding:13px 24px;border:1px solid #fff9;border-radius:999px;background:#fffaf0b8;backdrop-filter:blur(10px);font-family:Georgia,"Noto Serif KR",serif;color:#86677d;font-size:14px;letter-spacing:.06em;text-align:center;pointer-events:none;box-shadow:0 8px 28px #6c4b6418}
+@keyframes bookOpen{0%{transform:rotateY(0)}100%{transform:rotateY(-158deg)}}
+@keyframes captionFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.book-cover{background-size:cover;background-position:center center;box-shadow:none}.book-cover:before{inset:0}.intro-caption{font-size:12px;bottom:max(5%,env(safe-area-inset-bottom));padding:12px 20px}}
+@media(prefers-reduced-motion:reduce){.book-intro.opening .book-cover{animation-duration:.01ms}}
+/* ===== 새 표지 디자인 (책 펼침 효과는 그대로, 표지만 교체) ===== */
+.book-cover{
+  background-color:#efc6d7;
+  background-image:
+    radial-gradient(circle at 50% 40%,rgba(255,255,255,.6),transparent 46%),
+    radial-gradient(rgba(255,255,255,.36) 1.3px,transparent 1.7px),
+    linear-gradient(155deg,#f7d8e2 0%,#f0c2d5 42%,#d8c5ee 100%);
+  background-size:100% 100%,24px 24px,100% 100%;
+  background-position:center,0 0,center;
+  background-repeat:no-repeat,repeat,no-repeat;
+  filter:none;
+  padding:0;
+}
+.bc-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:92%;padding:0 12px}
+.bc-top{font-size:clamp(11px,min(2vw,2.4vh),15px);letter-spacing:.3em;color:#a56a86;margin-bottom:clamp(10px,2.4vh,22px);text-shadow:0 1px 0 #fff9}
+.bc-medal{position:relative;width:clamp(104px,min(27vw,28vh),210px);height:clamp(104px,min(27vw,28vh),210px);border-radius:50%;background:linear-gradient(145deg,#fffafc,#f1e7f8);border:clamp(4px,.8vw,7px) solid #fff;box-shadow:0 0 0 2px #d9a3ba,0 0 0 clamp(7px,1.2vw,10px) #fff6ee,0 0 0 clamp(9px,1.4vw,12px) #d9a3ba99,0 18px 40px #8c557055;overflow:hidden;display:grid;place-items:center;margin-bottom:clamp(14px,3vh,28px)}
+.bc-medal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+.bc-medal .fb{display:none;font-size:clamp(44px,10vw,84px);color:#bd718c}
+.bc-medal.noimg .fb{display:block}.bc-medal.noimg img{display:none}
+.bc-eyebrow{font-size:clamp(11px,min(2.1vw,2.5vh),15px);letter-spacing:.34em;font-weight:800;color:#a8607f;text-shadow:0 1px 0 #fff9}
+.bc-title{margin:clamp(4px,1vh,10px) 0 0;font-family:Georgia,"Noto Serif KR",serif;font-weight:800;font-size:clamp(32px,min(9vw,10.5vh),72px);line-height:1.16;letter-spacing:-.06em;color:#8b4968;text-shadow:0 1px 0 #fff,0 2px 0 #fff8,0 7px 18px #a15f7a40}
+.bc-title span{color:#c9709a;font-size:.62em;vertical-align:.14em;letter-spacing:0}
+.bc-line{display:flex;align-items:center;gap:12px;margin:clamp(12px,2.4vh,22px) 0 clamp(8px,1.6vh,14px);color:#c27a9a}
+.bc-line i{display:block;width:clamp(44px,9vw,92px);height:1px;background:linear-gradient(90deg,transparent,#c27a9a)}
+.bc-line i:last-child{background:linear-gradient(270deg,transparent,#c27a9a)}
+.bc-line b{font-size:15px;font-weight:400}
+.bc-sub{font-size:clamp(9px,min(1.7vw,2vh),12px);letter-spacing:.26em;color:#a57991;font-weight:700}
+.bc-band{position:absolute;z-index:1;top:0;bottom:0;right:clamp(64px,10vw,124px);width:clamp(12px,1.6vw,20px);background:linear-gradient(90deg,#c97c9e,#dc9bb8 45%,#c47595);box-shadow:-2px 0 6px #7f4a6330,2px 0 6px #7f4a6330,inset 0 0 0 1px #ffffff40}
+.bc-staff{position:absolute;z-index:0;left:9%;right:9%;bottom:clamp(88px,17vh,150px);height:33px;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.62) 0 1.5px,transparent 1.5px 8px);opacity:.8;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.bc-note{position:absolute;z-index:1;color:#fff;text-shadow:0 2px 10px #b9718c66;opacity:.65;animation:bcTwinkle 3.8s ease-in-out infinite;pointer-events:none}
+.bc-note.n1{left:15%;top:20%;font-size:clamp(20px,3.4vw,34px)}
+.bc-note.n2{left:79%;top:16%;font-size:clamp(24px,4vw,42px);animation-delay:.7s}
+.bc-note.n3{left:11%;top:62%;font-size:clamp(22px,3.6vw,36px);animation-delay:1.3s}
+.bc-note.n4{left:84%;top:66%;font-size:clamp(18px,3vw,30px);animation-delay:2s}
+.bc-note.n5{left:26%;top:80%;font-size:clamp(14px,2.2vw,22px);animation-delay:.4s}
+.bc-note.n6{left:66%;top:84%;font-size:clamp(20px,3.2vw,32px);animation-delay:1.7s}
+@keyframes bcTwinkle{0%,100%{opacity:.35;transform:translateY(0) rotate(-4deg)}50%{opacity:.85;transform:translateY(-7px) rotate(4deg)}}
+@media(max-width:600px){
+  .bc-band{right:58px}
+  .bc-note.n2{left:76%}.bc-note.n4{left:80%}
+}
+@media(min-aspect-ratio:1/1){.bc-staff{display:none}}
+@media(prefers-reduced-motion:reduce){.bc-note{animation:none}}
 </style>
 </head>
 <body>
+<div id="bookIntro" class="book-intro" role="button" tabindex="0" aria-label="책 표지를 눌러 노래서랍 열기">
+  <div class="book-scene">
+    <div class="storybook">
+      <div class="book-pages"></div>
+      <div class="book-cover">
+        <span class="bc-note n1" aria-hidden="true">♪</span>
+        <span class="bc-note n2" aria-hidden="true">♫</span>
+        <span class="bc-note n3" aria-hidden="true">♡</span>
+        <span class="bc-note n4" aria-hidden="true">♪</span>
+        <span class="bc-note n5" aria-hidden="true">✦</span>
+        <span class="bc-note n6" aria-hidden="true">♫</span>
+        <div class="bc-band" aria-hidden="true"></div>
+        <div class="bc-staff" aria-hidden="true"></div>
+        <div class="bc-inner">
+          <div class="bc-top" aria-hidden="true">♫ &nbsp;·&nbsp; ♡ &nbsp;·&nbsp; ♫</div>
+          <div class="bc-medal">
+            <img src="./cover-photo.gif" alt="" onerror="this.parentNode.classList.add('noimg')">
+            <span class="fb" aria-hidden="true">♫</span>
+          </div>
+          <div class="bc-eyebrow">PPARKXXO'S</div>
+          <h2 class="bc-title">빡쏘의<br>노래서랍 <span>♡</span></h2>
+          <div class="bc-line" aria-hidden="true"><i></i><b>♡</b><i></i></div>
+          <div class="bc-sub">SONGBOOK &amp; CLIP ARCHIVE</div>
+        </div>
+        <span class="book-corner corner-tl" aria-hidden="true">❦</span>
+        <span class="book-corner corner-tr" aria-hidden="true">❦</span>
+        <span class="book-corner corner-bl" aria-hidden="true">❦</span>
+        <span class="book-corner corner-br" aria-hidden="true">❦</span>
+</div>
+    </div>
+  </div>
+  <div class="intro-caption">표지를 눌러 책을 펼쳐보세요 ♡</div>
+</div>
 <div class="shell">
 <header class="top">
  <div class="brand"><div class="mark">♫</div><div>빡쏘의 노래서랍 ♡<small>PPARKXXO'S SONGBOOK</small></div></div>
@@ -121,21 +217,19 @@ button,input,select{font:inherit}button{cursor:pointer}
 </div>
 <main>
 <section id="songsPage" class="page active">
- <div class="sectionhead"><div><h2>Song Book</h2><p>노래를 누르면 오른쪽에 상세 정보와 LIVE 기록이 나와요.</p></div><span class="count" id="songCount">122곡</span></div>
+ <div class="sectionhead"><div><h2>Song Book</h2><p>노래를 누르면 오른쪽에 상세 정보와 LIVE 기록이 나와요.</p></div></div>
  <div class="songs-layout" id="songsLayout">
   <div class="songs-main">
    <div class="search"><span>⌕</span><input id="q" placeholder="노래 제목, 가수, 초성으로 검색"><button id="reset">초기화</button></div>
    <div class="filters" id="groups"></div><div class="filters" id="eras"></div><div class="filters" id="liveFilters"></div>
-   <div class="toolbar"><span class="count">노래 목록 · 눌러서 상세정보 보기</span><select id="sort"><option value="title">제목순</option><option value="artist">가수순</option><option value="live">LIVE 많은 순</option></select></div>
+   <div class="toolbar"><span class="count">노래 목록 · 눌러서 상세정보 보기</span><div class="toolbar-right"><span class="count" id="songCount">122곡</span><select id="sort"><option value="title">제목순</option><option value="artist">가수순</option><option value="live">LIVE 많은 순</option></select></div></div>
    <div class="songlist" id="songList"></div><div class="pagination" id="songPagination"></div>
   </div>
   <aside class="songclips-modal" id="songClipsModal" aria-hidden="true">
    <div class="songclips-dialog" role="dialog" aria-labelledby="songClipsTitle">
     <div class="songclips-head"><div class="songclips-heading"><h3 id="songClipsTitle">노래 제목</h3><p id="songClipsSubtitle">노래 정보</p></div><button class="songclips-close" id="closeSongClips" type="button" aria-label="상세 정보 닫기">×</button></div>
-    <div class="song-info-grid" id="songInfoGrid"></div>
-    <div class="song-modal-actions" id="songModalActions"></div>
-    <div class="related-heading"><strong>♡ LIVE 클립</strong><span id="relatedClipCount">0개</span></div>
-    <div class="related-list" id="relatedClipList"></div>
+    <div class="song-info-grid" id="songInfoGrid"></div><div class="song-modal-actions" id="songModalActions"></div>
+    <div class="related-heading"><strong>♡ LIVE 클립</strong><span id="relatedClipCount">0개</span></div><div class="related-list" id="relatedClipList"></div>
    </div>
   </aside>
  </div>
@@ -185,25 +279,17 @@ function renderSongs(){
  if(totalPages<=1){$('#songPagination').innerHTML='';return;}let buttons=`<button data-page-num="${currentPage-1}" ${currentPage===1?'disabled':''}>이전</button>`;for(let p=1;p<=totalPages;p++)buttons+=`<button data-page-num="${p}" class="${p===currentPage?'active':''}">${p}</button>`;buttons+=`<button data-page-num="${currentPage+1}" ${currentPage===totalPages?'disabled':''}>다음</button>`;$('#songPagination').innerHTML=buttons;
 }
 function openSongClips(song){
- selectedSong=song;
- relatedClips=getSongClips(song);
+ selectedSong=song;relatedClips=getSongClips(song);
  const title=song['노래제목']||'노래',artist=song['가수']||'가수 미등록';
- $('#songClipsTitle').textContent=title;
- $('#songClipsSubtitle').textContent=artist+' · 노래 상세 정보';
+ $('#songClipsTitle').textContent=title;$('#songClipsSubtitle').textContent=artist+' · 노래 상세 정보';
  const info=[['가수',artist],['장르',song['장르']||'미등록'],['분류',song['곡분류']||'미등록'],['시대',song['시대']||'미등록'],['키',song['키정보']||'키 미등록']];
  $('#songInfoGrid').innerHTML=info.map(([label,value])=>`<div class="song-info-item"><small>${esc(label)}</small><strong>${esc(value)}</strong></div>`).join('');
- const yt='https://www.youtube.com/results?search_query='+encodeURIComponent(title+' '+artist+' 노래방');
- const ly='https://www.google.com/search?q='+encodeURIComponent(title+' '+artist+' 가사');
+ const yt='https://www.youtube.com/results?search_query='+encodeURIComponent(title+' '+artist+' 노래방'),ly='https://www.google.com/search?q='+encodeURIComponent(title+' '+artist+' 가사');
  $('#songModalActions').innerHTML=`<a class="song-youtube" href="${yt}" target="_blank" rel="noopener noreferrer">▶ 유튜브 노래방</a><a class="song-lyrics" href="${ly}" target="_blank" rel="noopener noreferrer">♫ 가사 보기</a>`;
  $('#relatedClipCount').textContent=relatedClips.length+'개';
- $('#relatedClipList').innerHTML=relatedClips.length?relatedClips.map((clip,i)=>{const category=String(clip['클립분류']||'').trim(),people=parseParticipants(clip['참여자']);const participantText=category==='합방'&&people.length?`<span>같이한 사람 · ${people.map(esc).join(', ')}</span>`:'';return `<button class="related-clip" type="button" data-related-index="${i}"><span class="related-play">▶</span><span class="related-info"><strong>${esc(clip['클립제목']||'제목 미등록')}</strong><span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립 · ${esc(category||'분류 미등록')}</span>${participantText}</span><span class="related-arrow">›</span></button>`;}).join(''):'<div class="related-empty">아직 등록된 LIVE 클립이 없어요 ♡<br>클립 보관함에 이 노래의 클립을 추가하면 여기에 표시됩니다.</div>';
- const dlg=$('#songClipsModal .songclips-dialog'),wasOpen=$('#songClipsModal').classList.contains('open');
- $('#songsLayout').classList.add('has-detail');
- if(wasOpen){dlg.classList.remove('swap');void dlg.offsetWidth;dlg.classList.add('swap');}
- $('#songClipsModal').classList.add('open');$('#songClipsModal').setAttribute('aria-hidden','false');
- $('#songClipsModal .songclips-dialog').scrollTop=0;
- markSelectedRow();syncLock();
- if(isMobileView())$('#closeSongClips').focus();
+ $('#relatedClipList').innerHTML=relatedClips.length?relatedClips.map((clip,i)=>{const category=String(clip['클립분류']||'').trim(),people=parseParticipants(clip['참여자']),participantText=category==='합방'&&people.length?`<span>같이한 사람 · ${people.map(esc).join(', ')}</span>`:'';return `<button class="related-clip" type="button" data-related-index="${i}"><span class="related-play">▶</span><span class="related-info"><strong>${esc(clip['클립제목']||'제목 미등록')}</strong><span>${esc(clip['가수']||'가수 미등록')} · SOOP 클립 · ${esc(category||'분류 미등록')}</span>${participantText}</span><span class="related-arrow">›</span></button>`;}).join(''):'<div class="related-empty">아직 등록된 LIVE 클립이 없어요 ♡<br>클립 보관함에 이 노래의 클립을 추가하면 여기에 표시됩니다.</div>';
+ const dlg=$('#songClipsModal .songclips-dialog'),wasOpen=$('#songClipsModal').classList.contains('open');$('#songsLayout').classList.add('has-detail');if(wasOpen){dlg.classList.remove('swap');void dlg.offsetWidth;dlg.classList.add('swap');}
+ $('#songClipsModal').classList.add('open');$('#songClipsModal').setAttribute('aria-hidden','false');$('#songClipsModal .songclips-dialog').scrollTop=0;markSelectedRow();syncLock();if(isMobileView())$('#closeSongClips').focus();
 }
 function closeSongClips(){selectedSong=null;$('#songsLayout').classList.remove('has-detail');$('#songClipsModal').classList.remove('open');$('#songClipsModal').setAttribute('aria-hidden','true');markSelectedRow();syncLock();}
 function getEmbedUrl(url){const m=String(url||'').trim().match(/^https?:\/\/(?:vod\.)?sooplive\.co(?:m|\.kr)\/player\/(\d+)/i);return m?`https://vod.sooplive.co.kr/player/${m[1]}/embed`:'';}
@@ -242,6 +328,34 @@ function saveSongbookCache(data){try{localStorage.setItem(SONGBOOK_CACHE_KEY,JSO
 function loadSheetData(){return new Promise((resolve,reject)=>{const cb='songbookCallback',timer=setTimeout(()=>{cleanup();reject(new Error('API timeout'));},15000),script=document.createElement('script'),cleanup=()=>{clearTimeout(timer);delete window[cb];script.onerror=null;script.remove();};window[cb]=data=>{cleanup();if(isValidSheetData(data))resolve(data);else reject(new Error('Invalid API response'));};script.onerror=()=>{cleanup();reject(new Error('API load failed'));};script.src=API_URL+'?callback='+cb;document.head.appendChild(script);});}
 const cachedSongbook=readSongbookCache();if(cachedSongbook)renderAllData(cachedSongbook);else{renderGroups();renderEras();renderLiveFilters();renderClipFilters();renderCollaboratorFilters();}
 loadSheetData().then(data=>{saveSongbookCache(data);renderAllData(data);}).catch(()=>{if(!cachedSongbook){$('#songList').innerHTML='<div class="empty">구글 시트 연결에 실패했어요. 잠시 후 새로고침하거나 관리자에게 알려주세요.</div>';$('#clipGrid').innerHTML='<div class="empty">클립 목록을 불러오지 못했어요. 잠시 후 새로고침해주세요.</div>';}});
+
+/* 최초 방문 시 책 표지를 직접 눌러야 펼쳐짐. 같은 탭 새로고침에서는 다시 표시하지 않음 */
+(function(){
+  const intro=document.getElementById('bookIntro');
+  const key='pparkxxo_book_intro_seen';
+  if(!intro)return;
+  let seen=false;
+  try{seen=sessionStorage.getItem(key)==='1';}catch(e){}
+  if(seen){intro.remove();return;}
+  /* 여섯 가지 책 테두리 중 하나를 접속할 때 자동 선택 */
+  const frameNumber = Math.floor(Math.random() * 6) + 1;
+  intro.classList.add('frame-' + frameNumber);
+  let opened=false;
+  const openBook=()=>{
+    if(opened)return;
+    opened=true;
+    try{sessionStorage.setItem(key,'1');}catch(e){}
+    intro.classList.add('opening');
+    setTimeout(()=>{
+      intro.classList.add('finished');
+      setTimeout(()=>intro.remove(),650);
+    },1850);
+  };
+  intro.addEventListener('click',openBook);
+  intro.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();openBook();}
+  });
+})();
 </script>
 </body>
 </html>
