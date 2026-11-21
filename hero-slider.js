@@ -60,7 +60,8 @@
   var img = banner.querySelector('img');
   img.style.objectPosition = BANNER_POS;
   function loadGif() { if (!img.getAttribute('src')) img.src = GIF; }
-  if (document.readyState === 'complete') loadGif(); else window.addEventListener('load', loadGif);
+  img.decoding = 'async';
+  loadGif(); /* 페이지가 열리자마자 바로 불러오기 */
 
   var modal = document.createElement('div');
   modal.className = 'hs-modal';
